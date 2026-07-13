@@ -69,7 +69,9 @@ body{
 }
 
 .hero h1{
-    font-family:var(--font-deco);
+    font-family:var(--font-cn);
+    font-weight:300;
+    letter-spacing:10px;
 }
 
 h2, h3, h4{
@@ -84,7 +86,7 @@ h2, h3, h4{
     overflow:hidden;
     height:calc(100vh - var(--ticker-h));
     background:
-    linear-gradient(180deg,rgba(15,26,38,.15) 0%,rgba(15,26,38,.35) 55%,rgba(10,18,28,.72) 100%),
+    linear-gradient(180deg,rgba(20,32,46,.35) 0%,rgba(20,32,46,.50) 55%,rgba(14,23,34,.80) 100%),
     url("images/hero.jpg") center/cover;
     display:flex;
     align-items:center;
@@ -97,7 +99,7 @@ h2, h3, h4{
     content:"";
     position:absolute;
     inset:0;
-    background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.08),transparent 60%);
+    background:radial-gradient(ellipse at 50% 40%,rgba(233,205,150,.07),transparent 60%);
     pointer-events:none;
     z-index:1;
 }
@@ -111,13 +113,12 @@ h2, h3, h4{
     font-weight:400;
     text-transform:uppercase;
 }
-.hero h1{ font-size:var(--fs-hero); margin:24px 0; font-weight:400; letter-spacing:2px; text-shadow:0 2px 30px rgba(0,0,0,.25); }
+.hero h1{ font-size:52px; margin:26px 0; font-weight:300; text-shadow:0 2px 24px rgba(0,0,0,.2); }
 .hero h2{
-    font-size:13px;
+    font-size:13.5px;
     font-weight:400;
-    font-family:var(--font-en);
-    letter-spacing:3px;
-    text-transform:uppercase;
+    font-family:var(--font-cn);
+    letter-spacing:2px;
     color:rgba(255,255,255,.72);
 }
 .date{
@@ -1087,7 +1088,7 @@ footer{
         height: calc(100vh - var(--ticker-h));
         height: calc(100dvh - var(--ticker-h));
     }
-    .hero h1{ font-size: 38px; }
+    .hero h1{ font-size: 34px; letter-spacing: 6px; }
     .hero h2{ font-size: 12px; letter-spacing: 2px; }
     .small-title{ font-size: 12px; letter-spacing: 3px; }
     .date{ font-size: 13px; letter-spacing: 2px; }
@@ -1205,25 +1206,28 @@ footer{
 
 .snow span{
     position:absolute;
-    top:-10%;
-    color:white;
-    font-size:20px;
+    top:-6%;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:rgba(255,255,255,.75);
+    box-shadow:0 0 8px 1px rgba(255,255,255,.4);
+    opacity:.55;
     animation:snowfall linear infinite;
-    opacity:.5;
 }
 
-.snow span:nth-child(1){ left:10%; animation-duration:18s; }
-.snow span:nth-child(2){ left:25%; font-size:14px; animation-duration:22s; }
-.snow span:nth-child(3){ left:40%; font-size:24px; animation-duration:20s; }
-.snow span:nth-child(4){ left:55%; animation-duration:25s; }
-.snow span:nth-child(5){ left:70%; font-size:16px; animation-duration:19s; }
-.snow span:nth-child(6){ left:80%; font-size:26px; animation-duration:28s; }
-.snow span:nth-child(7){ left:90%; animation-duration:21s; }
-.snow span:nth-child(8){ left:50%; animation-duration:24s; }
+.snow span:nth-child(1){ left:10%; width:3px; height:3px; animation-duration:22s; }
+.snow span:nth-child(2){ left:25%; width:2px; height:2px; opacity:.4; animation-duration:27s; }
+.snow span:nth-child(3){ left:40%; width:5px; height:5px; background:rgba(233,205,150,.7); box-shadow:0 0 10px 2px rgba(233,205,150,.35); opacity:.5; animation-duration:24s; }
+.snow span:nth-child(4){ left:55%; width:3px; height:3px; animation-duration:30s; }
+.snow span:nth-child(5){ left:70%; width:2px; height:2px; opacity:.35; animation-duration:23s; }
+.snow span:nth-child(6){ left:80%; width:4px; height:4px; background:rgba(233,205,150,.6); box-shadow:0 0 9px 2px rgba(233,205,150,.3); opacity:.45; animation-duration:32s; }
+.snow span:nth-child(7){ left:90%; width:3px; height:3px; animation-duration:25s; }
+.snow span:nth-child(8){ left:50%; width:2px; height:2px; opacity:.4; animation-duration:28s; }
 
 @keyframes snowfall{
-    0%{ transform:translateY(-10vh) rotate(0deg); }
-    100%{ transform:translateY(110vh) rotate(360deg); }
+    0%{ transform:translateY(-10vh); }
+    100%{ transform:translateY(110vh); }
 }
 
 /* Hotels */
@@ -1791,13 +1795,13 @@ html{ scroll-behavior:smooth; }
 
 <section class="hero" id="heroSection">
 <div class="snow">
-<span>&#10052;</span><span>&#10052;</span><span>&#10052;</span><span>&#10052;</span>
-<span>&#10052;</span><span>&#10052;</span><span>&#10052;</span><span>&#10052;</span>
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
 </div>
 <div class="overlay">
 <p class="small-title">家庭冬季旅行</p>
 <h1>东北跨年之旅</h1>
-<h2>Harbin · Yabuli · Snow Town · Changbai Mountain</h2>
+<h2>哈尔滨 · 亚布力 · 雪乡 · 长白山</h2>
 <div class="date">26 DEC 2026<br>—<br>02 JAN 2027</div>
 <div class="hero-countdown" id="heroCountdown">正在计算...</div>
 <button class="hero-cta" onclick="document.querySelector('.highlights').scrollIntoView(); if(window.startMusic) window.startMusic();">开始旅程 ↓</button>
@@ -1814,7 +1818,7 @@ html{ scroll-behavior:smooth; }
 <button class="hl-tab-btn" data-tab="food" onclick="switchHlTab('food')">东北美食</button>
 <button class="hl-tab-btn" data-tab="safety" onclick="switchHlTab('safety')">随行保障</button>
 </div>
-<p class="day-swipe-hint">左右滑动切换分类</p>
+<p class="day-swipe-hint" id="hlSwipeHint">左右滑动切换分类</p>
 
 <div class="hl-viewport">
 <div class="hl-track" id="hlTrack">
@@ -2447,12 +2451,15 @@ window.switchHlTab = switchHlTab;
 // 和 Day 卡片一样：手指划动切换分类后，把 Highlights 区块顶部重新拉回视口内，
 // 避免用户停留在上一个分类卡片底部时，横滑切换却看不到新分类的标题/Tab栏
 function scrollHlTopIntoView(smooth){
-    const section = document.querySelector('.highlights');
-    if(!section) return;
-    const rect = section.getBoundingClientRect();
+    const anchor = document.getElementById('hlSwipeHint');
+    const tabs = document.getElementById('hlTabs');
+    if(!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const tabsHeight = tabs ? tabs.offsetHeight : 0;
+    const extra = tabsHeight + 20;
     const buffer = 90;
-    if(rect.top < -10 || rect.top > buffer){
-        const targetTop = window.scrollY + rect.top - 20;
+    if(rect.top < extra - 10 || rect.top > buffer + extra){
+        const targetTop = window.scrollY + rect.top - extra;
         window.scrollTo({ top: targetTop, behavior: smooth === false ? 'auto' : 'smooth' });
     }
 }
