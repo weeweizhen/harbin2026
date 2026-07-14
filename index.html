@@ -375,18 +375,19 @@ button:hover{
     right:14px;
     width:32px;
     height:32px;
-    border-radius:50%;
+    border-radius:0;
     border:none;
-    background:var(--ice-blue);
+    background:none;
     color:var(--winter-navy);
-    font-size:15px;
+    font-size:18px;
     cursor:pointer;
     display:flex;
     align-items:center;
     justify-content:center;
+    transition:color .2s;
 }
 
-.trip-popup-close:hover{ background:var(--winter-navy); color:white; }
+.trip-popup-close:hover{ color:var(--gold-accent); }
 
 /* ==========================================
  精华亮点分类系统 — Tab 切换展示（景点/体验/美食/保障）
@@ -769,6 +770,165 @@ button:hover{
 }
 
 .hl-info-close:hover{ color:var(--winter-navy); }
+
+/* ==========================================
+ 每日旅程 · 景点条目点击弹窗（照片 + 毛玻璃说明面板）
+============================================= */
+.day ul li.day-spot{
+    cursor:pointer;
+    transition:color .2s;
+}
+
+.day ul li.day-spot:hover{
+    color:var(--text-primary);
+}
+
+.day ul li.day-spot strong{
+    text-decoration:underline;
+    text-decoration-style:dotted;
+    text-decoration-color:rgba(169,128,63,.55);
+    text-underline-offset:3px;
+    transition:color .2s;
+}
+
+.day ul li.day-spot:hover strong{
+    color:var(--gold-accent);
+}
+
+.day-spot-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(14,23,34,.55);
+    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);
+    z-index:1450;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.day-spot-overlay.show{ display:flex; }
+
+.day-spot-card{
+    position:relative;
+    width:min(92%,420px);
+    border-radius:24px;
+    overflow:hidden;
+    background:var(--winter-navy);
+    box-shadow:0 30px 80px rgba(15,26,38,.4);
+    transform:translateY(14px) scale(.96);
+    opacity:0;
+    transition:transform .32s cubic-bezier(.22,.68,0,1), opacity .32s ease;
+}
+
+.day-spot-overlay.show .day-spot-card{
+    transform:translateY(0) scale(1);
+    opacity:1;
+}
+
+.day-spot-image-wrap{
+    position:relative;
+    width:100%;
+    height:280px;
+    background:linear-gradient(135deg,#2d4358,var(--winter-navy));
+    overflow:hidden;
+}
+
+.day-spot-image-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.day-spot-image-wrap::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:70px;
+    background:linear-gradient(180deg, rgba(15,26,38,0), rgba(15,26,38,.35));
+    pointer-events:none;
+}
+
+.day-spot-image-wrap.img-fallback::before{
+    content:"❄";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:46px;
+    color:rgba(255,255,255,.3);
+}
+
+.day-spot-close{
+    position:absolute;
+    top:16px;
+    right:16px;
+    width:32px;
+    height:32px;
+    border-radius:0;
+    border:none;
+    background:none;
+    color:#fff;
+    font-size:18px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2;
+    text-shadow:0 1px 4px rgba(0,0,0,.5);
+    transition:opacity .2s;
+}
+
+.day-spot-close:hover{ opacity:.7; }
+
+.day-spot-glass{
+    position:relative;
+    margin-top:-22px;
+    background:linear-gradient(160deg, rgba(255,255,255,.82), rgba(255,255,255,.58));
+    -webkit-backdrop-filter:blur(26px) saturate(180%);
+    backdrop-filter:blur(26px) saturate(180%);
+    border-top:1px solid rgba(255,255,255,.6);
+    border-radius:20px 20px 24px 24px;
+    padding:26px 26px 26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.day-spot-day{
+    display:block;
+    font-family:var(--font-en);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold-accent);
+    margin:0 0 10px;
+}
+
+.day-spot-glass h4{
+    margin:0 0 10px;
+    font-size:19px;
+    font-weight:700;
+    color:var(--text-primary);
+    font-family:var(--font-cn);
+}
+
+.day-spot-glass p{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.85;
+    color:var(--text-primary);
+}
+
+@media(max-width:600px){
+    .day-spot-image-wrap{ height:220px; }
+    .day-spot-glass{ padding:22px 20px 22px; }
+    .day-spot-glass h4{ font-size:17px; }
+}
 
 /* day */
 .day-viewport{
@@ -2065,10 +2225,10 @@ html{ scroll-behavior:smooth; }
 
 <ul>
 <li><strong>防寒装备采购</strong>：前往专业户外店，补齐帽子、厚手套、防滑雪地靴等必需品。</li>
-<li><strong>圣索菲亚大教堂</strong>：看百年的拜占庭穹顶建筑。去的时候可以带一份面包碎在广场上喂鸽子，这是经典的欧式合影机位。</li>
-<li><strong>中央大街</strong>：漫步在百年的面包石老街上，看看欧陆风情的橱窗。因为路面容易结冰，走路时记得穿防滑鞋、迈小碎步；如果想买红肠伴手礼，认准老字号专卖店。</li>
-<li><strong>松花江冰雪景观</strong>：站上结冻的江面远眺冬日的辽阔气势，现场可以体验冰滚子、冰上自行车等游玩项目。</li>
-<li><strong>哈尔滨冰雪大世界</strong>：建议在15:30左右入园，刚好能一次看尽落日与点灯两种光景。园内体感极寒不宜久站，注意随时保暖以及手机的续航。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 2" data-title="圣索菲亚大教堂" data-img="images/spots/day2-st-sophia.jpg" data-note="【绝美机位】1907年的老建筑，远东第一东正教堂。白天在广场上扯一袋面包碎（5块钱），就能拍到鸽子绕着你飞的法式大片；晚上灯光一打，直接秒变霍格沃茨东北分校。风很大，拍两张赶紧把手套戴上！"><strong>圣索菲亚大教堂</strong>：等一场夜幕下的全城飞雪，看洋葱头穹顶亮起金光，那是哈尔滨送给你的现实版"魔法学院"。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 2" data-title="中央大街" data-img="images/spots/day2-central-street.jpg" data-note="【防摔避坑】当年铺路时一块石头就值一美金，名副其实的&quot;黄金路&quot;。冬天路面结了暗冰滑得像溜冰场，千万别奔跑，穿雪地靴迈小碎步走！买红肠套娃认准挂牌老字号，别信路边扯着嗓子喊的流动摊。"><strong>中央大街</strong>：零下二十度踩着百年"马蹄石"走秀，右手一根马迭尔，左手一袋热红肠，这叫冰城专属的硬核浪漫。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 2" data-title="松花江冰雪景观" data-img="images/spots/day2-songhua-river.jpg" data-note="【省钱攻略】江面结冰几米厚，坦克开上去都没问题。里面有很多当地老乡摆的冰上项目（抽冰尜、坐冰车），可以讲价！【警惕】没有任何遮挡物，江风刮在脸上像刀子，面罩、雷锋帽必须全副武装，不然耳朵会冻坏。"><strong>松花江冰雪景观</strong>：去冻成百米巨型冰原的松花江上撒野！大滑梯、冰原漂移，解锁东北孩子当年的露天游乐场。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 2" data-title="哈尔滨冰雪大世界" data-img="images/spots/day2-ice-snow-world.jpg" data-note="【硬核避坑】最佳入园时间是下午3点，能同时拍到白天的冰清玉洁、橘色的绝美落日和亮灯后的赛博朋克。里面是个巨型大冰箱，手机进去5分钟就会被冻到自动关机！带2个充电宝，给手机后背贴个暖宝宝续命。"><strong>哈尔滨冰雪大世界</strong>：闯入冰与火之歌的"临冬城"！万吨松花江黑冰雕出的水晶宫殿，一生总要为它任性一次。</li>
 </ul>
 
 <div class="note"><span class="note-label">提醒</span>下午久留冰雪大世界室外，暖宝宝和手机放最内层口袋，注意保暖及手机续航</div>
@@ -2090,9 +2250,9 @@ html{ scroll-behavior:smooth; }
 </ul>
 
 <ul>
-<li><strong>亚布力滑雪</strong>：登上亚洲顶级雪场挑战速降。出发前给手机贴个暖宝宝防止低温关机，初学者量力而行，不要逞强去挑战高级道。</li>
-<li><strong>大马拉爬犁</strong>：全家围坐在一张关东木犁上穿越林海。觉得有意思可以请车夫挥鞭配合拍摄，出来的画面感会很强。</li>
-<li><strong>雪圈俯冲</strong>：连排的雪圈从高处滑下速度较快，出发前一定要替家里的老人和孩子确认好安全扣。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 3" data-title="亚布力滑雪" data-img="images/spots/day3-yabuli-ski.jpg" data-note="【安全提示】这里是专业国家队训练基地，雪质极好。新手和带娃的千万别逞能去挑战高级道，坡度陡得像悬崖，在初级道老老实实请个教练或者让领队带着玩。滑雪镜一定要戴，不然看久了雪地眼睛会瞎（雪盲症）。"><strong>亚布力滑雪</strong>：在"滑雪天花板"的顶级粉雪里御风下山，听雪刃划破冷空气的沙沙声，直接多巴胺爆表！</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 3" data-title="大马拉爬犁" data-img="images/spots/day3-horse-sled.jpg" data-note="【民俗拍照】闯关东时期的&quot;东北第一怪&quot;。坐在上面非常有大掌柜的派头，可以让马夫大哥挥鞭配合一下，拍个动态短视频发朋友圈，长辈和家里的神兽绝对爱到不行。"><strong>大马拉爬犁</strong>：大花被窝一盖，木头犁架一坐，听着脆生生的马铃儿响，全家在林海雪原里"招摇过市"。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 3" data-title="雪圈俯冲" data-img="images/spots/day3-snow-tube.jpg" data-note="【体验安全】坐在大橡胶圈里往下滑，离心力极强，刺激程度拉满。下滑的时候双手死死抓牢两边的把手，中途不管发生什么都别松手！出发前大人一定要帮老人和孩子把防滑扣拉紧。"><strong>雪圈俯冲</strong>：几个人扎堆连成"人体蜈蚣"，从陡峭的雪坡上一呼而下，体验一把没有刹车的雪地过山车！</li>
 </ul>
 
 <div class="split-plan">
@@ -2117,11 +2277,11 @@ html{ scroll-behavior:smooth; }
 </ul>
 
 <ul>
-<li><strong>十里画廊</strong>：欣赏冰瀑挂枝的水墨长廊。由于这里的雪质极纯净，是躺雪拍照与拍摄森林人像的绝佳取景地。</li>
-<li><strong>雪地摩托 & 雪圈长龙</strong>：在林海雪原中尽情驰骋。因为风大速度快，务必提前佩戴好护目镜或墨镜。</li>
-<li><strong>梦幻家园</strong>：近距离拍摄成排的"雪蘑菇"屋檐。走到后方的观景台可以俯瞰雪乡夜景的全貌。</li>
-<li><strong>东北二人转</strong>：观看地道的民间曲艺表演，现场笑料不断，既暖身又暖心。</li>
-<li><strong>雪地蹦迪 & 花车巡游</strong>：参与大花袄秧歌巡游与篝火晚会。跟着现场的节奏一起摇摆，寒意自然就消散了。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 4" data-title="十里画廊" data-img="images/spots/day4-scenic-corridor.jpg" data-note="【拍照技巧】深山里的雪没被污染过，白得发光。穿黑色或大红色的衣服去，对比度拉满，整个人躺进雪地里拍俯瞰视角无敌出片。记住别往没脚印的深雪区瞎走，雪底下可能是空心的灌木丛，容易陷进去。"><strong>十里画廊</strong>：现实版《林海雪原》的极致留白，踩在齐腰深的无污染纯白雪地里，随手一拍就是高智感冷风大片。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 4" data-title="雪地摩托 & 雪圈长龙" data-img="images/spots/day4-snowmobile.jpg" data-note="【保命防寒】这个项目风驰电掣，山顶冷得能把人冻成冰雕。上车前必须把羽绒服拉链拉到最顶，戴好防风面罩和护目镜！只要有一块皮肤露在外边，保准几分钟就冻伤，千万别为了帅不戴面罩！"><strong>雪地摩托 & 雪圈长龙</strong>：马达轰鸣，雪沫爆飞！在零下三十度的原始森林里油门焊死直冲山顶，爽感直接掀翻天灵盖！</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 4" data-title="梦幻家园" data-img="images/spots/day4-dream-home.jpg" data-note="【隐藏机位】雪乡雪质黏度高，才形成了这种圆滚滚的雪蘑菇，外面可看不到。别光在底下拍，顺着里面的木栈道一直往山上走，那个木质观景台是航拍视角的最佳机位，能拍到整个红灯笼雪村的全景！"><strong>梦幻家园</strong>：夜幕低垂，红灯笼一亮，那些肥嘟嘟的"雪蘑菇"瞬间活了，这里是装满小精灵的童话村落。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 4" data-title="东北二人转" data-img="images/spots/day4-errenzhuan.jpg" data-note="【东北民俗】&quot;宁舍一顿饭，不舍二人转&quot;，这是非物质文化遗产。演员说学逗唱浑身是绝活，段子雅俗共赏，剧场里暖气给得足，刚好能给冻了一天的身子解解乏，全家老少都能笑出腹肌。"><strong>东北二人转</strong>：钻进暖烘烘的土炕剧场，嗑着瓜子，看民间老艺人把手绢飞上天，近距离解压大笑。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 4" data-title="雪地蹦迪 & 花车巡游" data-img="images/spots/day4-bonfire-party.jpg" data-note="【现场体验】雪乡夜晚蹦的是&quot;养生迪&quot;。大秧歌花车过去后，万人围着篝火狂欢，现场气氛嗨到爆炸！不要怕冷，跟着人群一起跳、一起扭，不出5分钟浑身冒热气，把平时工作的压力全蹦走。"><strong>雪地蹦迪 & 花车巡游</strong>：披上大花袄，踩着土嗨野狼迪的鼓点，在零下二十度的星空下，围着熊熊篝火彻底释放天性！</li>
 </ul>
 
 <div class="note"><span class="note-label">过夜包提醒</span>雪乡景区内路面积雪厚，大行李箱一律留在包车上，每人今天出发前收纳好一个"一晚过夜包"（换洗衣物、洗漱用品、保暖睡衣），轻装入住雪景酒店，雪地走路安全第一</div>
@@ -2144,9 +2304,9 @@ html{ scroll-behavior:smooth; }
 </ul>
 
 <ul>
-<li><strong>泼水成冰</strong>：清晨用刚烧开的热水划出一条冰雾弧线。操作时注意腰部发力向后泼洒，同时手机开启慢动作拍摄效果最好。</li>
-<li><strong>镜泊湖冰瀑</strong>：走近火山堰塞湖的百米冰瀑玉柱。光线好时瀑面会泛着淡蓝色，运气好的话还能遇上悬崖跳水表演。</li>
-<li><strong>镜泊湖鱼宴</strong>：在湖畔品尝无泥腥味的冷水鱼，煮出来的汤色奶白、鲜美滋补。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 5" data-title="泼水成冰" data-img="images/spots/day5-water-to-ice.jpg" data-note="【拍照硬核技巧】1. 必须是100度刚烧开的滚水；2. 用保温杯，朝自己脑后划一个完美的圆弧洒出去；3. 拍照的人蹲低，开启手机&quot;慢动作&quot;或&quot;连拍&quot;，逆着太阳光拍。注意看好风向，别把开水泼到自己脸上！"><strong>泼水成冰</strong>：在零下三十度的金色晨曦里，把滚水扬向天空，瞬间炸开一圈绝美的冰晶羽翼。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 5" data-title="镜泊湖冰瀑" data-img="images/spots/day5-jingpo-icefall.jpg" data-note="【震撼景观】吊水楼瀑布冬天结冰后，呈现出淡淡的冰蓝色，像极了冰河世纪。运气好能蹲到东北奇人狄焕然弟子的悬崖冰瀑跳水表演，零下二十度穿着泳裤从悬崖一跃而下，简直是视觉暴击！"><strong>镜泊湖冰瀑</strong>：看原本狂奔的百米飞瀑被极寒瞬间按下暂停键，化作一堵泛着幽幽蓝光的震撼冰之悬崖。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 5" data-title="镜泊湖鱼宴" data-img="images/spots/day5-fish-feast.jpg" data-note="【吃货指南】火山熔岩堰塞湖养出来的鱼，生长极慢，肉质紧到弹牙。全鱼宴各种做法都有，酱焖的最入味，但最绝的还是大铁锅炖出来的鱼汤，一口下去鲜掉眉毛，瞬间把赶路的疲劳全扫光。"><strong>镜泊湖鱼宴</strong>：长途拉车后的灵魂救赎！吃一口毫无泥腥味的冷水湖鲜，喝一碗熬到奶白的热鱼汤，胃里瞬间春暖花开。</li>
 </ul>
 
 <div class="note"><span class="note-label">提醒</span>今天拉车时间最长，建议备好颈枕、保温杯及零食水果。抵达长白山后连住三晚，免去反复打包搬运</div>
@@ -2167,9 +2327,9 @@ html{ scroll-behavior:smooth; }
 </ul>
 
 <ul>
-<li><strong>长白山北坡景区</strong>：远眺冰封雪原中的天池全貌。山顶风大极寒，护耳帽与防风面罩是必备装备；天池能见度完全受天气影响，大家随缘看待就好。</li>
-<li><strong>长白瀑布 & 绿渊潭</strong>：冬日的冰瀑落差非常壮观，绿渊潭清冷得像武侠片取景地，很适合拍个人写真。</li>
-<li><strong>聚龙温泉群</strong>：在零下二十度的环境中遇见天然火山涌泉。可以顺便尝尝温泉蛋——蛋黄熟而蛋清不熟，连壳吸着吃。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 6" data-title="长白山北坡景区" data-img="images/spots/day6-tianchi.jpg" data-note="【随缘避坑】天池是活火山湖。山顶的风大到能把人吹跑，体感温度全行程最冷，护耳帽、面罩、厚手套是标配。能否看到天池全看人品，大雾大雪景区就会封山，去之前放平心态，随缘才是最好的遇见。"><strong>长白山北坡景区</strong>：坐上越野倒站车在雪山峭壁间漂移疾驰，去叩问那座冰封在十六座雪峰之巅的神秘天池。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 6" data-title="长白瀑布 & 绿渊潭" data-img="images/spots/day6-waterfall.jpg" data-note="冬日的冰瀑落差非常壮观，绿渊潭清冷得像武侠片取景地，很适合拍个人写真。"><strong>长白瀑布 & 绿渊潭</strong>：冬日的冰瀑落差非常壮观，绿渊潭清冷得像武侠片取景地，很适合拍个人写真。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 6" data-title="聚龙温泉群" data-img="images/spots/day6-hotspring.jpg" data-note="在零下二十度的环境中遇见天然火山涌泉。可以顺便尝尝温泉蛋——蛋黄熟而蛋清不熟，连壳吸着吃。"><strong>聚龙温泉群</strong>：在零下二十度的环境中遇见天然火山涌泉。可以顺便尝尝温泉蛋——蛋黄熟而蛋清不熟，连壳吸着吃。</li>
 </ul>
 
 <div class="split-plan">
@@ -2194,9 +2354,9 @@ html{ scroll-behavior:smooth; }
 </ul>
 
 <ul>
-<li><strong>魔界不冻河漂流</strong>：顺流而下看雾气氤氲与玉树琼枝。雾凇景观需看当天的天气湿度，哪怕碰巧无雾凇，晨光穿林的剪影同样如画。</li>
-<li><strong>长白山户外火山温泉</strong>：下午前往高品质的自涌矿物质温泉。体验"头枕白雪，身泡温泉"的反差感，记得自备泳衣，起身后及时用大毛巾保暖。</li>
-<li><strong>暖屋轻食</strong>：室内开足暖气后，来一碗带着冰渣的朝鲜族冷面配辣白菜，冰火交融非常解腻。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 7" data-title="魔界不冻河漂流" data-img="images/spots/day7-monjie-river.jpg" data-note="【绝美仙境】水温由于是地热温泉终年不冻，日出时水面蒸腾起巨大的水雾，岸边树木结满雾凇，像好莱坞奇幻大片。漂流时千万别乱晃，水溅到衣服上瞬间结冰！想看雾凇得赶早，起不来的话就错过了。"><strong>魔界不冻河漂流</strong>：清晨乘皮筏顺流而下，在温泉水化作的氤氲雾气中，穿行于两岸挂满晶莹雾凇的寂静仙境。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 7" data-title="长白山户外火山温泉" data-img="images/spots/day7-hotspring.jpg" data-note="【体验提示】纯天然的火山自涌真温泉。泡着泡着头发就会结成白色的冰霜，拍照发朋友圈非常搞笑。出水回室内的时候动作要快，用大毛巾裹紧，温差大容易感冒。泡完顺便买个温泉水煮的温泉蛋，蛋黄熟了蛋清还没熟，非常嫩！"><strong>长白山户外火山温泉</strong>：解锁"头顶飘雪花，身子泡滚汤"的极致冰火反差，在天然硫磺泉里把这几天的疲惫一笔勾销。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 7" data-title="暖屋轻食" data-img="images/spots/day7-cold-noodle.jpg" data-note="室内开足暖气后，来一碗带着冰渣的朝鲜族冷面配辣白菜，冰火交融非常解腻。"><strong>暖屋轻食</strong>：室内开足暖气后，来一碗带着冰渣的朝鲜族冷面配辣白菜，冰火交融非常解腻。</li>
 </ul>
 
 <div class="note"><span class="note-label">新年贴士</span>新年快乐，今天节奏轻松舒缓，没有高强度的长途移动，让全家在慢节奏中度过2027年第一天</div>
@@ -2219,9 +2379,9 @@ html{ scroll-behavior:smooth; }
 
 <ul>
 <li><strong>哈尔滨自由活动</strong>：高铁抵达后到晚间航班之间有一段城市空档期。</li>
-<li><strong>伴手礼采购</strong>：前往中央大街或老字号店铺，购入红肠、大列巴、俄式黑巧克力以及东北山货。</li>
-<li><strong>东北虎林园（备选）</strong>：若时间和体力允许可以安排一程。冬季老虎毛发最厚、精力最旺盛，观赏雪地猛虎捕食格外震撼。</li>
-<li><strong>惜别大餐</strong>：临行前安排一顿正宗的东北杀猪菜，酸菜配血肠蘸蒜酱，最后用酸菜汤泡饭收尾。约17:30由专属包车送达机场，预留好充裕的登机时间。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 8" data-title="伴手礼采购" data-img="images/spots/day8-souvenir.jpg" data-note="前往中央大街或老字号店铺，购入红肠、大列巴、俄式黑巧克力以及东北山货。"><strong>伴手礼采购</strong>：前往中央大街或老字号店铺，购入红肠、大列巴、俄式黑巧克力以及东北山货。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 8" data-title="东北虎林园（备选）" data-img="images/spots/day8-tiger-park.jpg" data-note="若时间和体力允许可以安排一程。冬季老虎毛发最厚、精力最旺盛，观赏雪地猛虎捕食格外震撼。"><strong>东北虎林园（备选）</strong>：若时间和体力允许可以安排一程。冬季老虎毛发最厚、精力最旺盛，观赏雪地猛虎捕食格外震撼。</li>
+<li class="day-spot" onclick="openDaySpotInfo(this)" data-day="DAY 8" data-title="惜别大餐" data-img="images/spots/day8-farewell-feast.jpg" data-note="临行前安排一顿正宗的东北杀猪菜，酸菜配血肠蘸蒜酱，最后用酸菜汤泡饭收尾。约17:30由专属包车送达机场，预留好充裕的登机时间。"><strong>惜别大餐</strong>：临行前安排一顿正宗的东北杀猪菜，酸菜配血肠蘸蒜酱，最后用酸菜汤泡饭收尾。约17:30由专属包车送达机场，预留好充裕的登机时间。</li>
 </ul>
 
 <div class="note"><span class="note-label">空档提醒</span>中午抵达哈尔滨站到晚上赴机场之间的几个小时，是大采购和休息的绝佳机会，请预留足够的登机缓冲时间</div>
@@ -2501,6 +2661,20 @@ html{ scroll-behavior:smooth; }
 </div>
 </div>
 
+<div class="day-spot-overlay" id="daySpotOverlay" onclick="if(event.target === this) closeDaySpotInfo();">
+<div class="day-spot-card">
+<button class="day-spot-close" onclick="closeDaySpotInfo()" aria-label="关闭">✕</button>
+<div class="day-spot-image-wrap" id="daySpotImageWrap">
+<img id="daySpotImg" src="" alt="" onerror="document.getElementById('daySpotImageWrap').classList.add('img-fallback'); this.style.display='none';">
+</div>
+<div class="day-spot-glass">
+<span class="day-spot-day" id="daySpotDay"></span>
+<h4 id="daySpotTitle"></h4>
+<p id="daySpotDesc"></p>
+</div>
+</div>
+</div>
+
 <footer>
 <div class="footer-inner">
 <div class="footer-icon">&#10052;</div>
@@ -2771,6 +2945,32 @@ function closeHlInfo(){
 
 window.openHlInfo = openHlInfo;
 window.closeHlInfo = closeHlInfo;
+
+/* ==========================================
+ 每日旅程 · 景点条目点击弹窗（照片 + 毛玻璃说明面板）
+============================================= */
+function openDaySpotInfo(el){
+    const overlay = document.getElementById("daySpotOverlay");
+    const img = document.getElementById("daySpotImg");
+    const wrap = document.getElementById("daySpotImageWrap");
+
+    document.getElementById("daySpotDay").textContent = el.dataset.day || "";
+    document.getElementById("daySpotTitle").textContent = el.dataset.title || "";
+    document.getElementById("daySpotDesc").textContent = el.dataset.note || "";
+
+    wrap.classList.remove("img-fallback");
+    img.style.display = "block";
+    img.src = el.dataset.img || "";
+
+    overlay.classList.add("show");
+}
+
+function closeDaySpotInfo(){
+    document.getElementById("daySpotOverlay").classList.remove("show");
+}
+
+window.openDaySpotInfo = openDaySpotInfo;
+window.closeDaySpotInfo = closeDaySpotInfo;
 
 function maybeShowPopup(now, nowTime){
     const overlay = document.getElementById("tripPopupOverlay");
