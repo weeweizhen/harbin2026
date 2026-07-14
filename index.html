@@ -672,6 +672,104 @@ button:hover{
     .highlight-item p{ font-size:11.5px; line-height:1.5; }
 }
 
+/* 亮点卡片：可点击查看当日行程弹窗 */
+.highlight-item.hl-clickable{ cursor:pointer; }
+
+/* 玻璃质感信息卡弹窗 */
+.hl-info-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(14,23,34,.5);
+    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);
+    z-index:1400;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.hl-info-overlay.show{ display:flex; }
+
+.hl-info-card{
+    position:relative;
+    width:min(92%,400px);
+    background:linear-gradient(160deg, rgba(255,255,255,.85), rgba(255,255,255,.62));
+    -webkit-backdrop-filter:blur(30px) saturate(180%);
+    backdrop-filter:blur(30px) saturate(180%);
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:24px;
+    padding:34px 30px 28px;
+    text-align:left;
+    box-shadow:
+        0 30px 80px rgba(15,26,38,.35),
+        inset 0 1px 0 rgba(255,255,255,.65);
+    transform:translateY(14px) scale(.96);
+    opacity:0;
+    transition:transform .32s cubic-bezier(.22,.68,0,1), opacity .32s ease;
+}
+
+.hl-info-overlay.show .hl-info-card{
+    transform:translateY(0) scale(1);
+    opacity:1;
+}
+
+.hl-info-day{
+    display:block;
+    font-family:var(--font-en);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold-accent);
+    margin:0 0 16px;
+    padding-bottom:12px;
+    border-bottom:1px solid rgba(169,128,63,.3);
+}
+
+.hl-info-card h4{
+    margin:0 0 12px;
+    font-size:20px;
+    font-weight:700;
+    color:var(--text-primary);
+    font-family:var(--font-cn);
+}
+
+.hl-info-card p{
+    margin:0 0 22px;
+    font-size:13.5px;
+    line-height:1.85;
+    color:var(--text-primary);
+}
+
+.hl-info-link{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--winter-navy);
+    text-decoration:none;
+    border-bottom:1.5px solid var(--gold-accent);
+    padding-bottom:2px;
+}
+
+.hl-info-close{
+    position:absolute;
+    top:20px;
+    right:22px;
+    border:none;
+    background:none;
+    color:var(--text-secondary);
+    font-size:15px;
+    line-height:1;
+    padding:0;
+    cursor:pointer;
+    transition:color .2s;
+}
+
+.hl-info-close:hover{ color:var(--winter-navy); }
+
 /* day */
 .day-viewport{
     width:100%;
@@ -1753,7 +1851,7 @@ html{ scroll-behavior:smooth; }
 
 <body>
 
-<audio id="bgMusic" src="music.mp3" loop preload="none"></audio>
+<audio id="bgMusic" src="Piano music.mp3" loop preload="none"></audio>
 
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="播放/暂停背景音乐">
 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1825,87 +1923,69 @@ html{ scroll-behavior:smooth; }
 
 <div class="hl-panel active" id="hlPanel-attraction">
 <div class="highlights-grid">
-<div class="highlight-item size-lg size-tall-mobile hl-attraction-1">
+<div class="highlight-item size-lg size-tall-mobile hl-attraction-1 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 2" data-title="圣索菲亚大教堂" data-target="#day2" data-note="被誉为哈尔滨最具代表性的地标之一，红砖砌筑的拜占庭式穹顶历经百年风霜依然壮观。清晨光线最柔和，广场上常有成群鸽子聚集，带一份面包碎就能引来鸽群，是全家出片率最高的取景点。步行10分钟即达中央大街，正好安排在同一段路线里。">
 <h3>圣索菲亚大教堂</h3>
-<p>百年拜占庭穹顶地标，广场喂鸽拍出欧式合照。</p>
 </div>
-<div class="highlight-item hl-attraction-2">
+<div class="highlight-item hl-attraction-2 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 2" data-title="中央大街" data-target="#day2" data-note="全长1400多米的百年步行街，两旁欧式建筑鳞次栉比，橱窗、老字号店铺与街头艺人交织出独特的欧陆风情。冬天路面容易结暗冰，普通鞋踩上去很滑，建议穿防滑雪地靴、迈小碎步慢慢逛；想买红肠等伴手礼，认准挂着老字号招牌的专卖店最靠谱。">
 <h3>中央大街</h3>
-<p>百年面包石老街，慢步百货橱窗与欧陆建筑群。</p>
 </div>
-<div class="highlight-item hl-attraction-3">
+<div class="highlight-item hl-attraction-3 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 2" data-title="哈尔滨冰雪大世界" data-target="#day2" data-note="每年限时开放的巨型冰雕主题乐园，白天透光的冰雕通透晶莹，入夜灯光点亮后又是另一番梦幻景象。建议下午15:30左右入园，正好能一次看尽落日与点灯两种光景。园区面积大、体感极寒，暖宝宝和手机记得放在最内层口袋，避免长时间暴露在外。">
 <h3>哈尔滨冰雪大世界</h3>
-<p>15:30入园赏落日点灯，巨型冰雕梦幻通宵璀璨。</p>
 </div>
-<div class="highlight-item size-tall-mobile hl-attraction-4">
+<div class="highlight-item size-tall-mobile hl-attraction-4 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 4" data-title="中国雪乡 · 雪蘑菇" data-target="#day4" data-note="厚厚的积雪层层叠叠堆在屋檐上，形成松软饱满的&#8220;雪蘑菇&#8221;造型，是雪乡最标志性的画面。傍晚沿街的红灯笼一盏盏亮起，配上皑皑白雪格外有童话感。当晚会连续安排花车巡游与篝火晚会，建议只带一个&#8220;过夜包&#8221;轻装入住，大行李箱留在包车上。">
 <h3>中国雪乡 · 雪蘑菇</h3>
-<p>层叠饱满雪蘑菇挂满屋檐，宛如童话村庄。</p>
 </div>
-<div class="highlight-item hl-attraction-6">
+<div class="highlight-item hl-attraction-6 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 6" data-title="长白山天池" data-target="#day6" data-note="登上长白山北坡远眺天池，冰封雪原辽阔壮丽，是整趟旅程视觉冲击力最强的一站。山顶风力大、气温极低，护耳帽和防风面罩是必备装备；天池的能见度完全取决于当天天气，能否看清全貌全凭运气，建议放平心态随缘欣赏。">
 <h3>长白山天池</h3>
-<p>登顶远眺巍峨天池，冰封雪原辽阔壮丽。</p>
 </div>
-<div class="highlight-item hl-attraction-7">
+<div class="highlight-item hl-attraction-7 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 5" data-title="镜泊湖 · 吊水楼瀑布" data-target="#day5" data-note="由火山熔岩堰塞形成的天然湖泊，冬季瀑面结冰后形成壮观的百米冰瀑，宛如凝固的玉柱悬挂崖壁。光线好的时候瀑面会泛出淡淡的蓝色调，运气好的话还能遇上悬崖跳水表演，是长途转移路上最值得停留拍照的一站。">
 <h3>镜泊湖 · 吊水楼瀑布</h3>
-<p>火山堰塞湖百米冰瀑玉柱，气势磅礴。</p>
 </div>
 </div>
 </div>
 
 <div class="hl-panel" id="hlPanel-experience">
 <div class="highlights-grid">
-<div class="highlight-item size-lg size-tall-mobile hl-experience-1">
+<div class="highlight-item size-lg size-tall-mobile hl-experience-1 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 3" data-title="极速亚布力滑雪" data-target="#day3" data-note="亚布力是亚洲规模最大、雪质最好的滑雪场之一，坡道设计丰富，从初级道到高级道一应俱全。出发前建议给手机贴一片暖宝宝，防止低温关机；初学者建议先在初级道熟悉装备，量力而行，不要贸然挑战高级道，安全永远第一位。">
 <h3>极速亚布力滑雪</h3>
-<p>亚洲顶级雪场速降飞驰，尽情释放冰雪激情。</p>
 </div>
-<div class="highlight-item hl-experience-2">
+<div class="highlight-item hl-experience-2 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 3" data-title="关东马拉爬犁" data-target="#day3" data-note="全家围坐在一张传统的关东木犁上，由骏马拉着穿越白雪覆盖的林海，铃铛声一路清脆作响，是很有东北民俗风情的体验。觉得有意思的话可以请车夫挥鞭配合拍摄，动感画面出片效果特别好，也很适合带长辈和小朋友一起坐。">
 <h3>关东马拉爬犁</h3>
-<p>大马拉爬犁穿越林海，铃铛声中体验关东风情。</p>
 </div>
-<div class="highlight-item hl-experience-9">
+<div class="highlight-item hl-experience-9 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 4" data-title="雪地蹦迪 & 篝火晚会" data-target="#day4" data-note="夜晚穿着大花袄参与秧歌巡游，接着围着熊熊篝火跳起雪地蹦迪，是雪乡夜晚最热闹的高潮环节。现场音乐节奏感很强，寒意在跳动中很快就消散了，非常适合全家一起下场热身。与白天的十里画廊、雪蘑菇观光同属一天安排，是雪乡精华的完美收尾。">
 <h3>雪地蹦迪 & 篝火晚会</h3>
-<p>大花袄秧歌巡游，万人篝火，跟着节奏一起摇摆。</p>
 </div>
-<div class="highlight-item size-tall-mobile hl-experience-6">
+<div class="highlight-item size-tall-mobile hl-experience-6 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 7" data-title="魔界不冻河漂流" data-target="#day7" data-note="沿着终年不结冰的河道顺流而下，两岸树木在低温中挂满雾凇，雾气氤氲宛如仙境，被称为&#8220;魔界&#8221;。雾凇景观是否浓郁完全取决于当天的湿度和气温，可遇不可求；即使当天没有雾凇，晨光穿过林间洒下的光影同样如诗如画，值得早起赴约。">
 <h3>魔界不冻河漂流</h3>
-<p>雾凇氤氲仙境漂流，晨光穿林如梦似幻。</p>
 </div>
-<div class="highlight-item hl-experience-7">
+<div class="highlight-item hl-experience-7 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 7" data-title="长白山户外真温泉" data-target="#day7" data-note="在零下二十几度的雪地里，泡进自涌而出的天然火山温泉，&#8220;头枕白雪、身泡温泉&#8221;的反差感非常治愈。记得自备泳衣，起身离开温泉池后要立刻用大毛巾包裹保暖，避免着凉；池边还可以顺手尝一颗温泉蛋，蛋黄凝固蛋清半熟，是当地人吃法。">
 <h3>长白山户外真温泉</h3>
-<p>头枕白雪身泡温泉，冰火交融尊享体验。</p>
 </div>
-<div class="highlight-item hl-experience-8">
+<div class="highlight-item hl-experience-8 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 5" data-title="泼水成冰" data-target="#day5" data-note="清晨气温最低时，将滚烫的热水用力泼向空中，水汽瞬间凝结成一道漂亮的冰雾弧线，是东北冬季独有的物理奇观。操作时要注意腰部发力、朝身后方向泼洒，避免热水溅到自己；手机开启慢动作模式拍摄，效果会格外惊艳。">
 <h3>泼水成冰</h3>
-<p>滚水凌空划出完美冰弧，冬日限定绝技。</p>
 </div>
 </div>
 </div>
 
 <div class="hl-panel" id="hlPanel-food">
 <div class="highlights-grid">
-<div class="highlight-item size-lg size-tall-mobile hl-food-1">
+<div class="highlight-item size-lg size-tall-mobile hl-food-1 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 1" data-title="大铁锅炖" data-target="#day1" data-note="东北人家最经典的家常大菜，大铁锅里炖着大鹅、榛蘑和土豆，锅边贴一圈金黄的玉米饼子，香气扑鼻又管饱。抵达哈尔滨的第一晚安排这道菜作宵夜，一家人围坐在热气腾腾的铁锅前，是帮身体快速适应北方室内外温差的暖心方式。">
 <h3>大铁锅炖</h3>
-<p>大鹅炖榛蘑贴玉米饼，围坐铁锅暖身又暖心。</p>
 </div>
-<div class="highlight-item hl-food-2">
+<div class="highlight-item hl-food-2 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 2" data-title="老式锅包肉" data-target="#day2" data-note="锅包肉是东北菜里的招牌菜之一，正宗老式做法讲究外皮酥脆、肉质软嫩，酸甜口味来自糖醋而非番茄酱，是很多东北人心中&#8220;最正宗&#8221;的老味道。挑餐馆时认准挂着老字号招牌的店，才吃得到这种传统做法，网红新式做法往往加了番茄酱，风味会差很多。">
 <h3>老式锅包肉</h3>
-<p>外酥里嫩不加番茄酱，东北传统老味道。</p>
 </div>
-<div class="highlight-item hl-food-7">
+<div class="highlight-item hl-food-7 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 2" data-title="哈尔滨红肠" data-target="#day2" data-note="哈尔滨红肠源自俄式灌肠工艺，经过传统烟熏后风味独特，是外地游客来哈尔滨必买的伴手礼之一。市面上仿冒和低价散装的红肠很多，建议认准中央大街上挂着老字号招牌的专卖店购买，品质和风味都更有保障，真空包装也方便带回家分享。">
 <h3>哈尔滨红肠</h3>
-<p>百年老字号烟熏工艺，伴手礼首选。</p>
 </div>
-<div class="highlight-item size-tall-mobile hl-food-8">
+<div class="highlight-item size-tall-mobile hl-food-8 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 2" data-title="马迭尔冰棍" data-target="#day2" data-note="马迭尔冰棍是哈尔滨的百年老品牌，奶香浓郁、口感扎实，最经典的吃法就是站在中央大街的寒风里边走边吃。零下二十几度的低温里啃一支冰棍，那种反差感和仪式感是哈尔滨独有的体验，几乎是每个来哈尔滨的游客都会打卡的经典画面。">
 <h3>马迭尔冰棍</h3>
-<p>站在街头零下二十度嗦冰棍，反差体验超上头。</p>
 </div>
-<div class="highlight-item hl-food-5">
+<div class="highlight-item hl-food-5 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 5" data-title="镜泊湖全鱼宴" data-target="#day5" data-note="镜泊湖水质清澈、无泥腥味，湖里养出的冷水鱼肉质格外细嫩鲜美。全鱼宴通常包含红烧鳌花、酱焖鲫鱼等多种做法，其中炖出来的鱼汤色泽奶白浓郁，滋补又暖胃，是长途转移路上补充体力的绝佳一餐，也是当地人待客的招牌菜式。">
 <h3>镜泊湖全鱼宴</h3>
-<p>无泥腥肥美冷水鱼，红烧酱焖各具风味。</p>
 </div>
-<div class="highlight-item hl-food-6">
+<div class="highlight-item hl-food-6 hl-clickable" onclick="openHlInfo(this)" data-day="DAY 4" data-title="冻梨 · 冰糖葫芦" data-target="#day4" data-note="冻梨是把秋梨冷冻后再自然解冻食用，外皮乌黑、口感冰凉酸甜，是东北人从小吃到大的冬季限定水果；冰糖葫芦则裹着一层脆薄的糖衣，酸甜交织。逛雪乡夜市花灯巡游的路上，顺手买一份边走边吃，是很有仪式感的雪乡限定体验。">
 <h3>冻梨 · 冰糖葫芦</h3>
-<p>冰脆解冻酸甜，东北限定街头小食。</p>
 </div>
 </div>
 </div>
@@ -2411,6 +2491,16 @@ html{ scroll-behavior:smooth; }
 </div>
 </div>
 
+<div class="hl-info-overlay" id="hlInfoOverlay" onclick="if(event.target === this) closeHlInfo();">
+<div class="hl-info-card">
+<button class="hl-info-close" onclick="closeHlInfo()" aria-label="关闭">✕</button>
+<p class="hl-info-day" id="hlInfoDay"></p>
+<h4 id="hlInfoTitle"></h4>
+<p id="hlInfoDesc"></p>
+<a href="#" class="hl-info-link" id="hlInfoLink" onclick="closeHlInfo()">查看当日行程 →</a>
+</div>
+</div>
+
 <footer>
 <div class="footer-inner">
 <div class="footer-icon">&#10052;</div>
@@ -2654,6 +2744,33 @@ function closeTripPopup(){
     localStorage.setItem(getDismissKey(getNow()), "true");
 }
 window.closeTripPopup = closeTripPopup;
+
+/* ==========================================
+ 行程亮点卡片 · 玻璃质感信息弹窗
+============================================= */
+let hlActiveCard = null;
+
+function openHlInfo(el){
+    if(hlActiveCard === el){
+        closeHlInfo();
+        return;
+    }
+
+    hlActiveCard = el;
+    document.getElementById("hlInfoDay").textContent = el.dataset.day || "";
+    document.getElementById("hlInfoTitle").textContent = el.dataset.title || "";
+    document.getElementById("hlInfoDesc").textContent = el.dataset.note || "";
+    document.getElementById("hlInfoLink").href = el.dataset.target || "#";
+    document.getElementById("hlInfoOverlay").classList.add("show");
+}
+
+function closeHlInfo(){
+    hlActiveCard = null;
+    document.getElementById("hlInfoOverlay").classList.remove("show");
+}
+
+window.openHlInfo = openHlInfo;
+window.closeHlInfo = closeHlInfo;
 
 function maybeShowPopup(now, nowTime){
     const overlay = document.getElementById("tripPopupOverlay");
