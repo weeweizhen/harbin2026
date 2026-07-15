@@ -190,6 +190,139 @@ button:hover{
     text-transform:uppercase;
 }
 
+.hero-cta-group{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    width:100%;
+    max-width:300px;
+    margin:0 auto;
+}
+
+.hero-choice{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:17px 26px;
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:2px;
+    background:rgba(255,255,255,.03);
+    color:#fff;
+    font-family:var(--font-en);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.hero-choice:hover,
+.hero-choice:focus-visible{
+    background:rgba(255,255,255,.14);
+    border-color:#fff;
+}
+
+@media(max-width:420px){
+    .hero-cta-group{ max-width:260px; }
+}
+
+/* ==========================================
+ 页面容器（了解东北 / 开始旅程）
+============================================= */
+.app-page{ display:none; }
+.app-page.active{ display:block; }
+
+.page-banner{
+    padding:56px 24px 42px;
+    text-align:center;
+    color:#fff;
+    background:linear-gradient(160deg,var(--winter-navy),#223a54);
+}
+
+.page-banner .back-link{
+    display:inline-block;
+    margin-bottom:14px;
+    border:none;
+    background:none;
+    padding:0;
+    font-family:var(--font-en);
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.6);
+    cursor:pointer;
+    transition:color .2s;
+}
+
+.page-banner .back-link:hover{ color:#fff; }
+
+.page-banner .small-title{ color:rgba(255,255,255,.75); }
+
+.page-banner h1{
+    font-family:var(--font-cn);
+    font-weight:300;
+    font-size:36px;
+    letter-spacing:10px;
+    margin:14px 0 0;
+    text-shadow:0 2px 24px rgba(0,0,0,.2);
+}
+
+.page-banner-sub{
+    max-width:480px;
+    margin:14px auto 0;
+    font-size:13.5px;
+    line-height:1.9;
+    color:rgba(255,255,255,.72);
+}
+
+@media(max-width:600px){
+    .page-banner{ padding:44px 20px 32px; }
+    .page-banner h1{ font-size:27px; letter-spacing:6px; }
+}
+
+.page-footer-cta{
+    padding:84px 24px 110px;
+    text-align:center;
+    background:var(--warm-beige);
+    border-top:1px solid rgba(27,42,61,.06);
+}
+
+.page-footer-cta .section-eyebrow{ margin-bottom:12px; }
+
+.page-footer-cta h3{
+    font-family:var(--font-cn);
+    font-weight:700;
+    font-size:22px;
+    color:var(--winter-navy);
+    margin:0 0 12px;
+}
+
+.page-footer-cta p{
+    max-width:440px;
+    margin:0 auto 30px;
+    font-size:var(--fs-body);
+    color:var(--text-secondary);
+    line-height:var(--lh-body);
+}
+
+.page-footer-cta button{
+    border:1px solid var(--winter-navy);
+    color:var(--winter-navy);
+    font-family:var(--font-en);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.page-footer-cta button:hover{
+    background:var(--winter-navy);
+    color:#fff;
+}
+
 /* CARD */
 .card{
     width:100%;
@@ -1997,6 +2130,245 @@ html{ scroll-behavior:smooth; }
     transform-origin:center;
 }
 
+/* ==========================================
+ 旅行杂志模块 — Stories / Did You Know / 方言 / 彩蛋
+============================================= */
+.reveal-item{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease; }
+.reveal-item.in-view{ opacity:1; transform:translateY(0); }
+
+/* Section icon badge (replaces emoji) */
+.section-icon-badge{
+    width:46px;
+    height:46px;
+    margin:0 auto 16px;
+    border-radius:50%;
+    background:var(--ice-blue);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.section-icon-badge svg{
+    width:22px;
+    height:22px;
+    stroke:var(--winter-navy);
+    fill:none;
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+/* Stories */
+.story-panel-intro{
+    text-align:center;
+    font-family:var(--font-cn);
+    font-size:15px;
+    font-weight:600;
+    color:var(--winter-navy);
+    letter-spacing:.5px;
+    margin:-6px 0 22px;
+}
+
+.story-index{
+    display:block;
+    font-family:var(--font-en);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:3px;
+    color:var(--gold-accent);
+    margin-bottom:12px;
+}
+
+.story-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+    margin-top:8px;
+}
+
+.story-card{
+    background:var(--snow-white);
+    border:1px solid rgba(27,42,61,.08);
+    border-radius:18px;
+    padding:24px 22px;
+    box-shadow:0 8px 20px rgba(20,32,45,.05);
+    transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.story-card:hover{ transform:translateY(-4px); box-shadow:0 18px 36px rgba(20,32,45,.12); }
+
+.story-card h4{
+    margin:0 0 10px;
+    font-size:16px;
+    font-weight:700;
+    color:var(--winter-navy);
+    line-height:1.4;
+}
+
+.story-card p{
+    margin:0;
+    font-size:14px;
+    color:var(--text-secondary);
+    line-height:1.8;
+}
+
+/* Did You Know */
+.fact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+    margin-top:8px;
+}
+
+.fact-card{
+    background:var(--ice-blue);
+    border-radius:16px;
+    padding:22px 20px;
+    text-align:left;
+    transition:transform .3s ease;
+}
+
+.fact-card:hover{ transform:translateY(-4px); }
+
+.fact-index{
+    display:block;
+    font-family:var(--font-en);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:3px;
+    color:var(--gold-accent);
+    margin-bottom:10px;
+}
+
+.fact-card h4{
+    margin:0 0 8px;
+    font-size:14.5px;
+    font-weight:700;
+    color:var(--winter-navy);
+    line-height:1.5;
+}
+
+.fact-card p{
+    margin:0;
+    font-size:13.5px;
+    color:var(--text-secondary);
+    line-height:1.7;
+}
+
+/* 方言横滑卡片 */
+.dialect-viewport{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    margin-top:10px;
+}
+
+.dialect-viewport::-webkit-scrollbar{ display:none; }
+
+.dialect-track{
+    display:flex;
+    gap:14px;
+    padding:2px 2px 10px;
+}
+
+.dialect-card{
+    flex:0 0 210px;
+    max-width:210px;
+    box-sizing:border-box;
+    scroll-snap-align:start;
+    background:var(--winter-navy);
+    color:var(--snow-white);
+    border-radius:18px;
+    padding:24px 20px;
+    text-align:center;
+}
+
+.dialect-term{
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:1px;
+    font-family:var(--font-cn);
+}
+
+.dialect-arrow{
+    color:var(--gold-accent);
+    font-size:12px;
+    margin:10px 0;
+    letter-spacing:1px;
+}
+
+.dialect-mean{
+    font-size:15px;
+    font-weight:600;
+}
+
+.dialect-example{
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.15);
+    font-size:12px;
+    color:rgba(253,251,248,.65);
+    line-height:1.7;
+}
+
+/* 隐藏彩蛋 */
+.egg{
+    cursor:pointer;
+    border-bottom:1.5px dotted var(--gold-accent);
+    transition:color .2s;
+}
+
+.egg:hover{ color:var(--gold-accent); }
+
+.hero-egg-icon{
+    display:inline-flex;
+    vertical-align:-3px;
+    border-bottom:none;
+    opacity:.85;
+    transition:opacity .2s, transform .2s;
+}
+
+.hero-egg-icon:hover{ opacity:1; transform:scale(1.15); }
+
+.hero-egg-icon svg{
+    width:16px;
+    height:16px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:1.6;
+    stroke-linecap:round;
+}
+
+.egg-toast{
+    position:fixed;
+    left:50%;
+    bottom:28px;
+    transform:translateX(-50%) translateY(16px);
+    background:var(--winter-navy);
+    color:var(--snow-white);
+    padding:13px 22px;
+    border-radius:14px;
+    font-size:13.5px;
+    line-height:1.6;
+    box-shadow:0 16px 36px rgba(0,0,0,.28);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease, transform .35s ease;
+    z-index:2100;
+    max-width:86%;
+    text-align:center;
+    cursor:pointer;
+}
+
+.egg-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+@media(max-width:600px){
+    .dialect-card{ flex:0 0 78%; max-width:78%; }
+}
+
 @keyframes musicPulse{
     from{ transform:scale(1); }
     to{ transform:scale(1.22); }
@@ -2034,15 +2406,7 @@ html{ scroll-behavior:smooth; }
 
 <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
 
-<nav class="nav-panel" id="navPanel">
-<a href="#journey" onclick="closeNav()"><span class="nav-num">01</span><span class="nav-text"><span class="nav-cn">每日旅程</span><span class="nav-en">Journey</span></span></a>
-<a href="#hotels" onclick="closeNav()"><span class="nav-num">02</span><span class="nav-text"><span class="nav-cn">住宿</span><span class="nav-en">Hotels</span></span></a>
-<a href="#flights" onclick="closeNav()"><span class="nav-num">03</span><span class="nav-text"><span class="nav-cn">航班资讯</span><span class="nav-en">Flights</span></span></a>
-<a href="#weather" onclick="closeNav()"><span class="nav-num">04</span><span class="nav-text"><span class="nav-cn">实时天气</span><span class="nav-en">Weather</span></span></a>
-<a href="#outfit" onclick="closeNav()"><span class="nav-num">05</span><span class="nav-text"><span class="nav-cn">穿搭指南</span><span class="nav-en">Outfit Guide</span></span></a>
-<a href="#exchange" onclick="closeNav()"><span class="nav-num">06</span><span class="nav-text"><span class="nav-cn">汇率换算</span><span class="nav-en">Exchange Rate</span></span></a>
-<a href="#checklist" onclick="closeNav()"><span class="nav-num">07</span><span class="nav-text"><span class="nav-cn">行李清单</span><span class="nav-en">Packing</span></span></a>
-</nav>
+<nav class="nav-panel" id="navPanel"></nav>
 
 <div class="ticker-bar" id="tickerBar">
 <div class="ticker-track">
@@ -2057,14 +2421,26 @@ html{ scroll-behavior:smooth; }
 <span></span><span></span><span></span><span></span>
 </div>
 <div class="overlay">
-<p class="small-title">家庭冬季旅行</p>
+<p class="small-title">家庭冬季旅行 · <span class="egg hero-egg-icon" data-egg="egg-snow" data-msg="东北人常说：下雪才是真正的冬天。"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20M3.8 7l16.4 10M20.2 7L3.8 17"/></svg></span></p>
 <h1>东北跨年之旅</h1>
 <h2>哈尔滨 · 亚布力 · 雪乡 · 长白山</h2>
 <div class="date">26 DEC 2026<br>—<br>02 JAN 2027</div>
 <div class="hero-countdown" id="heroCountdown">正在计算...</div>
-<button class="hero-cta" onclick="document.querySelector('.highlights').scrollIntoView(); if(window.startMusic) window.startMusic();">开始旅程 ↓</button>
+<div class="hero-cta-group">
+<button class="hero-choice" onclick="if(window.startMusic) window.startMusic(); navGo('learn');">探索东北</button>
+<button class="hero-choice" onclick="if(window.startMusic) window.startMusic(); navGo('journey');">开始旅程</button>
+</div>
 </div>
 </section>
+
+<div class="app-page" id="pageJourney">
+
+<div class="page-banner">
+<button class="back-link" onclick="showPage('hero')">‹ 返回首页</button>
+<p class="small-title">家庭冬季旅行 · JOURNEY</p>
+<h1>开始旅程</h1>
+<p class="page-banner-sub">穿过零下三十度的北境，落脚每一个热气腾腾的归宿。</p>
+</div>
 
 <section class="card highlights">
 <p class="section-eyebrow">Highlights</p>
@@ -2513,7 +2889,7 @@ html{ scroll-behavior:smooth; }
         </svg>
         厚羊毛袜
     </span>
-    <span class="spec-tag">
+    <span class="spec-tag egg" data-egg="egg-nuanbaobao" data-msg="东北老司机建议：一天至少准备3包暖宝宝。">
         <svg class="spec-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2c1.2 2.5 4 4.5 4 8a4 4 0 1 1-8 0c0-1.3.5-2.2 1.1-3.1.2 1 .8 1.6 1.4 1.6.9 0 1-1 .7-2C10.6 5 11 3.3 12 2z"/>
         </svg>
@@ -2639,6 +3015,265 @@ html{ scroll-behavior:smooth; }
 </div>
 
 </section>
+
+<div class="page-footer-cta">
+<p class="section-eyebrow">Before You Go</p>
+<h3>出发前，先读懂这片土地</h3>
+<p>旅行故事、东北冷知识、方言小课堂，都在东北典故里等着你。</p>
+<button onclick="navGo('learn')">东北典故 →</button>
+</div>
+
+</div><!-- /#pageJourney -->
+
+<div class="app-page" id="pageLearn">
+
+<div class="page-banner">
+<button class="back-link" onclick="showPage('hero')">‹ 返回首页</button>
+<p class="small-title">家庭冬季旅行 · DISCOVER</p>
+<h1>探索东北</h1>
+<p class="page-banner-sub">踏入这片白，读懂这片黑土地最炽热的独白。</p>
+</div>
+
+<!-- ============ STORIES ============ -->
+<section id="stories" class="card stories">
+<div class="section-icon-badge">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 6.5c-1.8-1.3-4.2-2-7-2v13c2.8 0 5.2.7 7 2 1.8-1.3 4.2-2 7-2v-13c-2.8 0-5.2.7-7 2z"/><path d="M12 6.5v13"/></svg>
+</div>
+<p class="section-eyebrow">Stories</p>
+<h2>旅行故事与在地文化</h2>
+<p class="section-intro">在启程之前，先读懂这片土地。每一座城市，都有一段值得慢慢讲的故事。</p>
+
+<div class="hl-tabs" id="storyTabs">
+<button class="hl-tab-btn active" data-city="harbin" onclick="switchStoryTab('harbin')">哈尔滨</button>
+<button class="hl-tab-btn" data-city="yabuli" onclick="switchStoryTab('yabuli')">亚布力</button>
+<button class="hl-tab-btn" data-city="xuexiang" onclick="switchStoryTab('xuexiang')">雪乡</button>
+<button class="hl-tab-btn" data-city="changbai" onclick="switchStoryTab('changbai')">长白山</button>
+</div>
+<p class="day-swipe-hint" id="storySwipeHint">左右滑动切换城市</p>
+
+<div class="hl-viewport">
+<div class="hl-track" id="storyTrack">
+
+<div class="hl-panel active" id="storyPanel-harbin">
+<p class="story-panel-intro">"混血"城市的硬核历史</p>
+<div class="story-grid">
+<div class="story-card reveal-item">
+<span class="story-index">01</span>
+<h4>不只有浪漫，这里曾是<span class="egg" data-egg="egg-spy" data-msg="哈尔滨曾与卡萨布兰卡齐名，被称为&quot;远东间谍之都&quot;。">"谍战之都"</span></h4>
+<p>别只看中央大街的浪漫。百年前，中东铁路的修建让几十万外国人涌入哈尔滨，这里曾可流通几十种货币。脚下的每一块巴洛克面包石，当年都曾有各国特工、富商与流亡贵族匆匆走过。</p>
+</div>
+<div class="story-card reveal-item">
+<span class="story-index">02</span>
+<h4>红砖街的百年"面包石"</h4>
+<p>中央大街与红砖街铺设的并非普通石头，而是花岗岩方石，俗称"面包石"。当年铺设时，一块石头就值一块<span class="egg" data-egg="egg-yinyuan" data-msg="银元是清末民初的主要流通货币，一枚约含纯银26克。">银元</span>，相当于普通家庭一个月的生活费——整条街铺下来，等于用纯银铺路，名副其实的"黄金大道"。</p>
+</div>
+</div>
+</div>
+
+<div class="hl-panel" id="storyPanel-yabuli">
+<p class="story-panel-intro">曾经的皇家"禁地"</p>
+<div class="story-grid">
+<div class="story-card reveal-item">
+<span class="story-index">01</span>
+<h4>"亚布力"其实是一句<span class="egg" data-egg="egg-yabuli-name" data-msg="&quot;亚布力&quot;源自俄语&quot;Яблоня&quot;，意为苹果园。">俄语</span></h4>
+<p>这个充满异域风情的名字，源自俄语中"苹果园"一词。中东铁路修建时，沙俄工人在此发现漫山遍野的野生苹果，于是以此命名，延用至今。</p>
+</div>
+<div class="story-card reveal-item">
+<span class="story-index">02</span>
+<h4>清朝皇室的御用猎场</h4>
+<p>清代，亚布力曾是封禁的<span class="egg" data-egg="egg-royal-hunt" data-msg="清代皇家围场制度始于康熙年间，用于训练八旗兵狩猎与军事演练。">皇家围场</span>，只有王公贵族才能入内狩猎。如今我们在这里滑雪、坐索道，在当年可是普通人连靠近都不被允许的禁地。</p>
+</div>
+</div>
+</div>
+
+<div class="hl-panel" id="storyPanel-xuexiang">
+<p class="story-panel-intro">完美的"物理实验室"</p>
+<div class="story-grid">
+<div class="story-card reveal-item">
+<span class="story-index">01</span>
+<h4>为什么只有这里的雪能"长"成蘑菇？</h4>
+<p>别处下雪，风一吹就散了。<span class="egg" data-egg="egg-xuexiang" data-msg="雪蘑菇并非人工雕塑，每一朵形状都独一无二，是纯天然堆积而成。">雪乡</span>地处双峰林场，特殊的山谷地形让风极小；又因暖湿气流与冷空气在此交汇，雪的含水量极高，粘性大得像糯米。雪落下后彼此牢牢粘住，顺着屋檐木桩，慢慢"长"成了圆滚滚的雪蘑菇。</p>
+</div>
+</div>
+</div>
+
+<div class="hl-panel" id="storyPanel-changbai">
+<p class="story-panel-intro">真正的"摸金校尉"祖地</p>
+<div class="story-grid">
+<div class="story-card reveal-item">
+<span class="story-index">01</span>
+<h4>长白山到底有多"神"？</h4>
+<p>清代，长白山被<span class="egg" data-egg="egg-fengjin" data-msg="长白山封禁令始于康熙十六年（1677年），直到清末才逐步开放。">封禁</span>整整200多年。满族视这里为龙脉发祥地，禁止任何人进入，这也让它成了"闯关东"年代华北流民最向往的神秘宝地。</p>
+</div>
+<div class="story-card reveal-item">
+<span class="story-index">02</span>
+<h4>放山人与"棒槌"的暗号</h4>
+<p>当年进长白山挖人参（俗称放山）的人有一套生死规矩：林子里绝对不能喊"人参"，要喊"<span class="egg" data-egg="egg-bangchui" data-msg="东北方言里，&quot;棒槌&quot;是人参的隐语，直呼其名被认为会惊扰山神。">棒槌</span>"。发现人参要喊"嗷──棒槌！"，同伴需接话"什么货？"，以此祈求山神庇佑。这套古老的山林黑话，至今仍流传在长白山脚下。</p>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</section>
+
+<!-- ============ DID YOU KNOW ============ -->
+<section id="coldfacts" class="card coldfacts">
+<div class="section-icon-badge">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.2 11.1c.6.4 1 1.1 1 1.9h4.4c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3z"/></svg>
+</div>
+<p class="section-eyebrow">Did You Know</p>
+<h2>东北冷知识</h2>
+<p class="section-intro">出发前先囤一点谈资，路上讲给家人听刚刚好。</p>
+
+<div class="fact-grid">
+<div class="fact-card reveal-item">
+<span class="fact-index">01</span>
+<h4>零下三十度时手机为什么秒没电？</h4>
+<p>低温让锂电池化学反应变慢，电压瞬间降低触发保护机制自动关机；回到暖气房后，电量便会"满血复活"。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">02</span>
+<h4>入户门为什么都是往里拉的？</h4>
+<p>一旦夜里普降暴雪，室外积雪会把往外开的门死死顶住；门往里拉才能留出空隙，方便把雪刨开自救。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">03</span>
+<h4>漆黑硬邦邦的<span class="egg" data-egg="egg-dongli" data-msg="冻梨在东北已有数百年食用历史，是传统的越冬保鲜智慧。">冻梨</span>坏了吗？</h4>
+<p>没有坏，这是东北特有的水果魔法。反复冷冻解冻让果肉中的酚类物质氧化变黑，吃前放凉水解冻，敲开冰壳就能吸溜果汁。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">04</span>
+<h4>洗浴"翻面"是什么暗号？</h4>
+<p>搓澡时不用自己乱动，师傅会拍拍你的肩膀或大腿，用节奏示意"翻身"或"侧过来"，是心照不宣的默契。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">05</span>
+<h4>走在冰上为什么要像企鹅一样？</h4>
+<p>南方人习惯脚后跟先着地，在冰面上极易向后滑倒；正确姿势是身体前倾、重心压在前脚掌，小碎步贴地滑行更抓地。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">06</span>
+<h4>零下三十度晾的衣服为什么会干？</h4>
+<p>衣服挂出去几分钟就冻成硬纸板，但挂一天冰会自动消失——物理学上这叫"升华"，冰不经融化直接在干冷空气里蒸发了。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">07</span>
+<h4>在冰雪世界为什么还会被晒黑？</h4>
+<p>白雪对阳光反射率高达九成，相当于一面巨大镜子。不注意防晒，容易晒黑，甚至引发<span class="egg" data-egg="egg-xuemang" data-msg="雪盲症医学上称&quot;光性角膜炎&quot;，是强紫外线灼伤角膜所致。">"雪盲症"</span>。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">08</span>
+<h4>为什么车子总不熄火？</h4>
+<p>极寒下机油变粘稠、电瓶效率骤降，司机们宁愿怠速等待，也不愿冒险熄火后打不着车。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">09</span>
+<h4>为什么千万不能舔室外的铁栏杆？</h4>
+<p>铁的导热性极强，舌头贴上瞬间表面水分会瞬间结冰，像强力胶一样粘住舌头。千万别硬扯，要用温水浇淋解冻。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">10</span>
+<h4>"泼水成冰"为什么必须用热水？</h4>
+<p>热水蒸发极快，在极寒空气中会瞬间产生大量微小水滴并秒结成冰晶，形成羽毛状扇面；用冷水只会直接浇自己一头凉水。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">11</span>
+<h4>温泉蛋为什么蛋黄熟了蛋清却没熟？</h4>
+<p>低温慢煮的物理反差。温泉水温恰好介于蛋黄凝固点（约68°C）与蛋清凝固点（约80°C）之间，煮出来的蛋黄已凝固，蛋清却依然如吸溜果冻。</p>
+</div>
+<div class="fact-card reveal-item">
+<span class="fact-index">12</span>
+<h4>露天泡温泉为什么会瞬间"白头"？</h4>
+<p>头顶-20°C的极寒与40°C的热气相遇，发丝上的水蒸气瞬间凝华成冰晶。几分钟就能全家集体解锁"圣诞老人"发型，拍照后记得迅速按进水里融化。</p>
+</div>
+</div>
+</section>
+
+<!-- ============ 东北话小课堂 ============ -->
+<section id="dialect" class="card dialect">
+<div class="section-icon-badge">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 5h16v10H8l-4 4V5z"/></svg>
+</div>
+<p class="section-eyebrow">Local Dialect</p>
+<h2>东北话小课堂</h2>
+<p class="section-intro">学几句东北话，瞬间拉近和当地人的距离。左右滑动继续学习。</p>
+
+<div class="dialect-viewport">
+<div class="dialect-track">
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">嘎哈呢？</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">你在干什么？</div>
+<div class="dialect-example">"哎，你嘎哈呢？还不快点！"</div>
+</div>
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">老铁</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">好兄弟，好朋友</div>
+<div class="dialect-example">"老铁，走，整点烧烤去！"</div>
+</div>
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">埋汰</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">脏，不干净</div>
+<div class="dialect-example">"这鞋咋整这么埋汰？"</div>
+</div>
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">整一个</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">来一个，做一个</div>
+<div class="dialect-example">"服务员，整一个锅包肉！"</div>
+</div>
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">唠嗑</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">聊天</div>
+<div class="dialect-example">"晚上没事，来家唠嗑呗。"</div>
+</div>
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">可劲儿</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">尽情地，使劲地</div>
+<div class="dialect-example">"难得来一趟，可劲儿造！"</div>
+</div>
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">贼</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">特别，非常</div>
+<div class="dialect-example">"今天贼冷，穿厚点！"</div>
+</div>
+
+<div class="dialect-card reveal-item">
+<div class="dialect-term">咋整</div>
+<div class="dialect-arrow">↓</div>
+<div class="dialect-mean">怎么办</div>
+<div class="dialect-example">"钱包丢了，这可咋整？"</div>
+</div>
+
+</div>
+</div>
+<p class="day-swipe-hint">左右滑动查看更多方言</p>
+</section>
+
+<div class="page-footer-cta">
+<p class="section-eyebrow">All Set</p>
+<h3>读懂了东北，该出发了</h3>
+<p>完整的每日行程、住宿、天气与实用信息，都在旅程里等着你。</p>
+<button onclick="navGo('journey')">开始旅程 →</button>
+</div>
+
+</div><!-- /#pageLearn -->
+
+<div class="egg-toast" id="eggToast"></div>
 
 <div class="trip-popup-overlay" id="tripPopupOverlay">
 <div class="trip-popup">
@@ -3155,6 +3790,64 @@ function closeNav(){
 window.toggleNav = toggleNav;
 window.closeNav = closeNav;
 
+/* ==========================================
+ 页面切换：hero / 探索东北（learn） / 开始旅程（journey）
+============================================= */
+const navItemsByPage = {
+    journey: [
+        ['01','每日旅程','Journey','journey'],
+        ['02','住宿','Hotels','hotels'],
+        ['03','航班资讯','Flights','flights'],
+        ['04','实时天气','Weather','weather'],
+        ['05','穿搭指南','Outfit Guide','outfit'],
+        ['06','汇率换算','Exchange Rate','exchange'],
+        ['07','行李清单','Packing','checklist']
+    ],
+    learn: [
+        ['01','旅行故事','Stories','stories'],
+        ['02','东北冷知识','Did You Know','coldfacts'],
+        ['03','东北话小课堂','Dialect','dialect']
+    ]
+};
+
+function renderNavPanel(page){
+    const panel = document.getElementById('navPanel');
+    if(!panel) return;
+    const items = navItemsByPage[page] || [];
+    panel.innerHTML = items.map(([num, cn, en, anchor]) =>
+        `<a href="#${anchor}" onclick="event.preventDefault(); navGo('${page}','${anchor}');"><span class="nav-num">${num}</span><span class="nav-text"><span class="nav-cn">${cn}</span><span class="nav-en">${en}</span></span></a>`
+    ).join('');
+}
+
+function showPage(page){
+    const hero = document.getElementById('heroSection');
+    const learn = document.getElementById('pageLearn');
+    const journey = document.getElementById('pageJourney');
+
+    if(hero) hero.style.display = (page === 'hero') ? 'flex' : 'none';
+    if(learn) learn.classList.toggle('active', page === 'learn');
+    if(journey) journey.classList.toggle('active', page === 'journey');
+
+    if(page === 'learn' || page === 'journey') renderNavPanel(page);
+
+    closeNav();
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+}
+window.showPage = showPage;
+
+function navGo(page, anchorId){
+    showPage(page);
+    if(anchorId){
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                const el = document.getElementById(anchorId);
+                if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    }
+}
+window.navGo = navGo;
+
 (function(){
     function updateTickerHeight(){
         const ticker = document.getElementById('tickerBar');
@@ -3429,7 +4122,140 @@ async function initExchangeConverter(){
     }
 }
 
+/* ==========================================
+ 旅行杂志模块 JS — Stories / 彩蛋 / 滚动动画
+============================================= */
+
+/* Stories 城市切换 —— 与行程亮点一致的横滑+Tab同步 */
+const storyTabOrder = ['harbin','yabuli','xuexiang','changbai'];
+
+function getStoryViewport(){
+    return document.querySelector('.stories .hl-viewport');
+}
+
+function setStoryActiveTab(city){
+    document.querySelectorAll('#storyTabs .hl-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-city') === city);
+    });
+}
+
+function switchStoryTab(city, shouldScroll){
+    if(shouldScroll === undefined) shouldScroll = true;
+    setStoryActiveTab(city);
+
+    if(shouldScroll){
+        const viewport = getStoryViewport();
+        const idx = storyTabOrder.indexOf(city);
+        if(viewport && idx >= 0){
+            const width = viewport.clientWidth || 0;
+            viewport.scrollTo({ left: idx * width, behavior: 'smooth' });
+        }
+    }
+}
+window.switchStoryTab = switchStoryTab;
+
+function scrollStoryTopIntoView(smooth){
+    const anchor = document.getElementById('storySwipeHint');
+    const tabs = document.getElementById('storyTabs');
+    if(!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const tabsHeight = tabs ? tabs.offsetHeight : 0;
+    const extra = tabsHeight + 20;
+    const buffer = 90;
+    if(rect.top < extra - 10 || rect.top > buffer + extra){
+        const targetTop = window.scrollY + rect.top - extra;
+        window.scrollTo({ top: targetTop, behavior: smooth === false ? 'auto' : 'smooth' });
+    }
+}
+
+function initStoryScrollSync(){
+    const viewport = getStoryViewport();
+    if(!viewport) return;
+    let scrollTimer;
+
+    viewport.addEventListener('scroll', () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            const width = viewport.clientWidth || 1;
+            const idx = Math.round(viewport.scrollLeft / width);
+            if(idx >= 0 && idx < storyTabOrder.length){
+                setStoryActiveTab(storyTabOrder[idx]);
+                scrollStoryTopIntoView(true);
+            }
+        }, 120);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        const activeBtn = document.querySelector('#storyTabs .hl-tab-btn.active');
+        if(activeBtn) switchStoryTab(activeBtn.getAttribute('data-city'), true);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initStoryScrollSync);
+
+/* 隐藏彩蛋：可重复点击查看，不再限定只显示一次 */
+const EGG_PREFIX = 'trip-egg-';
+let eggToastTimer = null;
+
+function showEggToast(msg){
+    const toast = document.getElementById('eggToast');
+    if(!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toast.onclick = () => toast.classList.remove('show');
+    if(eggToastTimer) clearTimeout(eggToastTimer);
+    eggToastTimer = setTimeout(() => toast.classList.remove('show'), 6500);
+}
+
+function triggerEgg(el){
+    const id = el.getAttribute('data-egg');
+    const msg = el.getAttribute('data-msg');
+    if(!id || !msg) return;
+
+    try{ localStorage.setItem(EGG_PREFIX + id, '1'); }catch(e){}
+    el.classList.add('found');
+    showEggToast(msg);
+}
+window.triggerEgg = triggerEgg;
+
+function initEggs(){
+    document.querySelectorAll('.egg[data-egg]').forEach(el => {
+        let found = false;
+        try{ found = !!localStorage.getItem(EGG_PREFIX + el.getAttribute('data-egg')); }catch(e){}
+        if(found) el.classList.add('found');
+
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            triggerEgg(el);
+        });
+    });
+}
+
+/* 滚动淡入动画 */
+function initRevealAnimation(){
+    const items = document.querySelectorAll('.reveal-item');
+    if(!items.length) return;
+
+    if(!('IntersectionObserver' in window)){
+        items.forEach(el => el.classList.add('in-view'));
+        return;
+    }
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+                entry.target.classList.add('in-view');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    items.forEach(el => revealObserver.observe(el));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initEggs();
+    initRevealAnimation();
     initExchangeConverter();
     setInterval(async () => {
         const info = await fetchExchangeRateWithFallback();
