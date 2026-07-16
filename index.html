@@ -1593,29 +1593,52 @@ footer{
     align-items:stretch;
 }
 
-.hotel-card{
+.hotel-card-flip{
     position:relative;
+    height:210px;
+    perspective:1400px;
+    cursor:pointer;
+}
+
+.hotel-card-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .6s cubic-bezier(.22,.68,0,1);
+    transform-style:preserve-3d;
+}
+
+.hotel-card-flip.flipped .hotel-card-inner{ transform:rotateY(180deg); }
+
+.hotel-card,
+.hotel-card-back{
+    position:absolute;
+    inset:0;
+    border-radius:18px;
     overflow:hidden;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    box-shadow:0 16px 34px rgba(20,32,45,.1);
+}
+
+.hotel-card-flip:hover .hotel-card-inner{ transform:translateY(-3px); }
+.hotel-card-flip.flipped:hover .hotel-card-inner{ transform:rotateY(180deg) translateY(-3px); }
+
+.hotel-card{
     background-size:cover;
     background-position:center;
     color:white;
-    height:210px;
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
     padding:26px;
-    border-radius:18px;
-    box-shadow:0 16px 34px rgba(20,32,45,.1);
-    transition:.4s cubic-bezier(.22,.68,0,1);
 }
-
-.hotel-card:hover{ transform:translateY(-3px); box-shadow:0 22px 44px rgba(20,32,45,.16); }
 
 .hotel-card::before{
     content:"";
     position:absolute;
     inset:0;
-    background:linear-gradient(180deg,rgba(15,26,38,.05) 35%,rgba(15,26,38,.88) 100%);
+    background:linear-gradient(180deg,rgba(15,26,38,.1) 20%,rgba(15,26,38,.94) 100%);
     z-index:0;
 }
 
@@ -1632,18 +1655,19 @@ footer{
     text-transform:uppercase;
     color:var(--gold-accent);
     margin:0 0 10px;
+    text-shadow:0 1px 4px rgba(0,0,0,.3);
 }
 
-.hotel-card h3{ color:white; font-size:19px; font-weight:500; letter-spacing:.2px; line-height:1.4; font-family:var(--font-cn); margin:0; }
+.hotel-card h3{ color:white; font-size:19px; font-weight:500; letter-spacing:.2px; line-height:1.4; font-family:var(--font-cn); margin:0; text-shadow:0 1px 6px rgba(0,0,0,.35); }
 .hotel-card h3 a{ color:inherit; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.35); }
 .hotel-card h3 a:hover{ border-color:rgba(255,255,255,.9); }
-.hotel-card p{ line-height:1.75; font-size:12.5px; font-weight:300; color:rgba(255,255,255,.78); margin:6px 0 0; }
+.hotel-card p{ line-height:1.75; font-size:12.5px; font-weight:300; color:rgba(255,255,255,.85); margin:6px 0 0; text-shadow:0 1px 4px rgba(0,0,0,.3); }
 .hotel-dates{
     font-family:var(--font-en) !important;
     font-size:11px !important;
     letter-spacing:1.5px;
     text-transform:uppercase;
-    color:rgba(255,255,255,.55) !important;
+    color:rgba(255,255,255,.68) !important;
     font-weight:500 !important;
     margin-top:10px !important;
 }
@@ -1653,9 +1677,17 @@ footer{
 .hotel-bg-snowtown{ background-image:url("images/hotel-snowtown.jpg"); }
 .hotel-bg-changbai{ background-image:url("images/hotel-changbai.jpg"); }
 
+.hotel-card-back{
+    background-size:cover;
+    background-position:center;
+    background-color:var(--winter-navy);
+    transform:rotateY(180deg);
+}
+
 @media(max-width:600px){
     .hotel-grid{ grid-template-columns:1fr; }
-    .hotel-card{ height:180px; padding:22px; }
+    .hotel-card-flip{ height:180px; }
+    .hotel-card{ padding:22px; }
 }
 
 .important-grid{
@@ -2782,32 +2814,52 @@ html{ scroll-behavior:smooth; }
 <h2>住宿</h2>
 <div class="hotel-grid">
 
+<div class="hotel-card-flip" onclick="flipHotelCard(this)">
+<div class="hotel-card-inner">
 <div class="hotel-card hotel-bg-harbin">
 <p class="hotel-eyebrow">Selected Stay</p>
-<h3><a href="https://my.trip.com/hotels/harbin-hotel-detail-8345167/crowne-plaza-harbin-songbei-by-ihg/?locale=zh-MY&rankingId=100200400358" target="_blank">哈尔滨松北融创皇冠假日酒店</a></h3>
+<h3><a href="https://my.trip.com/hotels/harbin-hotel-detail-8345167/crowne-plaza-harbin-songbei-by-ihg/?locale=zh-MY&rankingId=100200400358" target="_blank" onclick="event.stopPropagation()">哈尔滨松北融创皇冠假日酒店</a></h3>
 <p class="hotel-dates">26/12 &mdash; 27/12</p>
 <p>哈尔滨第一晚入住的国际品牌酒店，环境舒服、设施齐全。<br>位置靠近冰雪大世界，适合作为抵达哈尔滨后的休息地点。</p>
 </div>
+<div class="hotel-card-back" style="background-image:url('images/hotel-harbin-full.jpg')"></div>
+</div>
+</div>
 
+<div class="hotel-card-flip" onclick="flipHotelCard(this)">
+<div class="hotel-card-inner">
 <div class="hotel-card hotel-bg-yabuli">
 <p class="hotel-eyebrow">Selected Stay</p>
-<h3><a href="https://hk.trip.com/hotels/shangzhi-hotel-detail-125193346/xuerun-mingjia-skiwintertravelholid-hotel-yabuli-ski-resort-branch/" target="_blank">亚布力雪润茗家滑雪度假酒店</a></h3>
+<h3><a href="https://hk.trip.com/hotels/shangzhi-hotel-detail-125193346/xuerun-mingjia-skiwintertravelholid-hotel-yabuli-ski-resort-branch/" target="_blank" onclick="event.stopPropagation()">亚布力雪润茗家滑雪度假酒店</a></h3>
 <p class="hotel-dates">28/12</p>
 <p>亚布力滑雪期间入住的度假酒店，靠近滑雪区域。<br>方便体验滑雪、雪地活动，感受东北冰雪氛围。</p>
 </div>
+<div class="hotel-card-back" style="background-image:url('images/hotel-yabuli-full.jpg')"></div>
+</div>
+</div>
 
+<div class="hotel-card-flip" onclick="flipHotelCard(this)">
+<div class="hotel-card-inner">
 <div class="hotel-card hotel-bg-snowtown">
 <p class="hotel-eyebrow">Selected Stay</p>
-<h3><a href="https://hk.trip.com/hotels/hailin-hotel-detail-132873306/xueyun-jian-yiyun-elysian-snow-view-resort-hotel/" target="_blank">雪云间·雪景度假酒店（雪乡）</a></h3>
+<h3><a href="https://hk.trip.com/hotels/hailin-hotel-detail-132873306/xueyun-jian-yiyun-elysian-snow-view-resort-hotel/" target="_blank" onclick="event.stopPropagation()">雪云间·雪景度假酒店（雪乡）</a></h3>
 <p class="hotel-dates">29/12</p>
 <p>位于雪乡景区内，晚上可以直接逛雪韵大街看雪景。<br>住在这里能体验雪乡夜晚灯笼、积雪和童话般的氛围。</p>
 </div>
+<div class="hotel-card-back" style="background-image:url('images/hotel-snowtown-full.jpg')"></div>
+</div>
+</div>
 
+<div class="hotel-card-flip" onclick="flipHotelCard(this)">
+<div class="hotel-card-inner">
 <div class="hotel-card hotel-bg-changbai">
 <p class="hotel-eyebrow">Selected Stay</p>
-<h3><a href="https://hk.trip.com/hotels/antu-hotel-detail-112995223/renjoy-hotel/" target="_blank">长白山云居酒店</a></h3>
+<h3><a href="https://hk.trip.com/hotels/antu-hotel-detail-112995223/renjoy-hotel/" target="_blank" onclick="event.stopPropagation()">长白山云居酒店</a></h3>
 <p class="hotel-dates">30/12 &mdash; 01/01</p>
 <p>长白山行程期间的住宿地点，靠近二道白河镇及景区。<br>环境安静舒服，方便第二天前往长白山北坡游玩。</p>
+</div>
+<div class="hotel-card-back" style="background-image:url('images/hotel-changbai-full.jpg')"></div>
+</div>
 </div>
 
 </div>
@@ -3319,6 +3371,7 @@ html{ scroll-behavior:smooth; }
 </div>
 </div>
 
+
 <script>
 const hlTabOrder = ['attraction','experience','food','safety'];
 
@@ -3604,6 +3657,22 @@ function closeDaySpotInfo(){
 
 window.openDaySpotInfo = openDaySpotInfo;
 window.closeDaySpotInfo = closeDaySpotInfo;
+
+/* ==========================================
+ 住宿卡片翻面（点击翻到背面纯照片，无文字；
+ 翻开另一张时，之前翻开的会自动翻回正面）
+============================================= */
+let flippedHotelCard = null;
+
+function flipHotelCard(el){
+    if(flippedHotelCard && flippedHotelCard !== el){
+        flippedHotelCard.classList.remove("flipped");
+    }
+    el.classList.toggle("flipped");
+    flippedHotelCard = el.classList.contains("flipped") ? el : null;
+}
+
+window.flipHotelCard = flipHotelCard;
 
 function maybeShowPopup(now, nowTime){
     const overlay = document.getElementById("tripPopupOverlay");
