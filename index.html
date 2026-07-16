@@ -235,52 +235,34 @@ button:hover{
 .app-page.active{ display:block; }
 
 .page-banner{
-    padding:56px 24px 42px;
-    text-align:center;
-    color:#fff;
-    background:linear-gradient(160deg,var(--winter-navy),#223a54);
+    position:fixed;
+    top:16px;
+    left:20px;
+    z-index:60;
 }
 
 .page-banner .back-link{
-    display:inline-block;
-    margin-bottom:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
     border:none;
-    background:none;
     padding:0;
+    background:none;
     font-family:var(--font-en);
     font-size:11px;
     font-weight:500;
-    letter-spacing:2px;
+    letter-spacing:1.5px;
     text-transform:uppercase;
-    color:rgba(255,255,255,.6);
+    color:var(--ink-muted);
     cursor:pointer;
     transition:color .2s;
 }
 
-.page-banner .back-link:hover{ color:#fff; }
-
-.page-banner .small-title{ color:rgba(255,255,255,.75); }
-
-.page-banner h1{
-    font-family:var(--font-cn);
-    font-weight:300;
-    font-size:36px;
-    letter-spacing:10px;
-    margin:14px 0 0;
-    text-shadow:0 2px 24px rgba(0,0,0,.2);
-}
-
-.page-banner-sub{
-    max-width:480px;
-    margin:14px auto 0;
-    font-size:13.5px;
-    line-height:1.9;
-    color:rgba(255,255,255,.72);
-}
+.page-banner .back-link:hover{ color:var(--winter-navy); }
 
 @media(max-width:600px){
-    .page-banner{ padding:44px 20px 32px; }
-    .page-banner h1{ font-size:27px; letter-spacing:6px; }
+    .page-banner{ top:12px; left:14px; }
+    .page-banner .back-link{ font-size:10px; }
 }
 
 .page-footer-cta{
@@ -1339,6 +1321,14 @@ button:hover{
     margin-top:16px;
 }
 
+.scroll-anchor{
+    display:block;
+    height:0;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+}
+
 /* checklist */
 .checklist-dashboard{
     display:grid;
@@ -1425,8 +1415,8 @@ label:has(input:checked){ color:var(--ink-muted); text-decoration:line-through; 
 }
 
 footer{
-    background:#ffffff;
-    border-top:1px solid #eef1f4;
+    background:var(--snow-white);
+    border-top:1px solid rgba(27,42,61,.06);
     padding:120px 24px 110px;
 }
 
@@ -1449,7 +1439,7 @@ footer{
     font-size:26px;
     line-height:1.6;
     letter-spacing:1.5px;
-    color:#16212e;
+    color:var(--winter-navy);
     margin:0 0 28px;
 }
 
@@ -1460,7 +1450,7 @@ footer{
     line-height:1.6;
     letter-spacing:3.5px;
     text-transform:uppercase;
-    color:#94a3b3;
+    color:var(--ink-muted);
     margin:0 0 40px;
 }
 
@@ -1470,7 +1460,7 @@ footer{
     font-size:var(--fs-small);
     line-height:1.9;
     letter-spacing:.5px;
-    color:#6b7a89;
+    color:var(--text-secondary);
     margin:0;
 }
 
@@ -1558,32 +1548,6 @@ footer{
     margin-bottom:15px;
     font-family:var(--font-cn);
     font-weight:600;
-}
-
-.ticker-bar{
-    width:100%;
-    background:var(--winter-navy);
-    color:rgba(255,255,255,.85);
-    overflow:hidden;
-    padding:9px 0;
-    font-size:11px;
-    letter-spacing:.5px;
-}
-
-.ticker-track{
-    display:flex;
-    width:max-content;
-    animation:tickerScroll 50s linear infinite;
-}
-
-.ticker-track span{
-    white-space:nowrap;
-    padding-right:10px;
-}
-
-@keyframes tickerScroll{
-    from{ transform:translateX(0); }
-    to{ transform:translateX(-50%); }
 }
 
 .snow{
@@ -2099,6 +2063,36 @@ footer{
     pointer-events:auto;
 }
 
+/* 页面切换转场：Apple 风格——先短暂白屏清空视觉，再让内容极顺滑地滑入 */
+.page-transition-veil{
+    position:fixed;
+    inset:0;
+    background:var(--snow-white);
+    z-index:1400;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+}
+
+.page-transition-veil.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+@keyframes pageContentIn{
+    from{ opacity:0; transform:translateY(46px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+.page-anim{
+    animation:pageContentIn .85s cubic-bezier(.16,1,.3,1) both;
+}
+
+@media(prefers-reduced-motion:reduce){
+    .page-transition-veil{ transition:none; }
+    .page-anim{ animation:none; }
+}
+
 html{ scroll-behavior:smooth; }
 
 .music-btn{
@@ -2191,11 +2185,7 @@ html{ scroll-behavior:smooth; }
     border:1px solid rgba(27,42,61,.08);
     border-radius:18px;
     padding:24px 22px;
-    box-shadow:0 8px 20px rgba(20,32,45,.05);
-    transition:transform .3s ease, box-shadow .3s ease;
 }
-
-.story-card:hover{ transform:translateY(-4px); box-shadow:0 18px 36px rgba(20,32,45,.12); }
 
 .story-card h4{
     margin:0 0 10px;
@@ -2226,6 +2216,7 @@ html{ scroll-behavior:smooth; }
     padding:22px 20px;
     text-align:left;
     transition:transform .3s ease;
+    cursor:pointer;
 }
 
 .fact-card:hover{ transform:translateY(-4px); }
@@ -2253,6 +2244,31 @@ html{ scroll-behavior:smooth; }
     font-size:13.5px;
     color:var(--text-secondary);
     line-height:1.7;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    transition:max-height .4s ease, opacity .3s ease .05s, margin-top .4s ease;
+}
+
+.fact-card.open p{
+    max-height:320px;
+    opacity:1;
+    margin-top:2px;
+}
+
+.fact-toggle-hint{
+    display:block;
+    margin-top:2px;
+    font-size:12px;
+    font-family:var(--font-en);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--gold-accent);
+    transition:opacity .2s ease;
+}
+
+.fact-card.open .fact-toggle-hint{
+    display:none;
 }
 
 /* 方言横滑卡片 */
@@ -2405,15 +2421,9 @@ html{ scroll-behavior:smooth; }
 </button>
 
 <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+<div class="page-transition-veil" id="pageVeil"></div>
 
 <nav class="nav-panel" id="navPanel"></nav>
-
-<div class="ticker-bar" id="tickerBar">
-<div class="ticker-track">
-<span>每天提前15分钟集合　·　手机放内袋保暖　·　充电宝随身携带　·　长途车准备零食和水　·　路面结冰注意防滑　·　雪地道路慢走　·　</span>
-<span>每天提前15分钟集合　·　手机放内袋保暖　·　充电宝随身携带　·　长途车准备零食和水　·　路面结冰注意防滑　·　雪地道路慢走　·　</span>
-</div>
-</div>
 
 <section class="hero" id="heroSection">
 <div class="snow">
@@ -2437,9 +2447,6 @@ html{ scroll-behavior:smooth; }
 
 <div class="page-banner">
 <button class="back-link" onclick="showPage('hero')">‹ 返回首页</button>
-<p class="small-title">家庭冬季旅行 · JOURNEY</p>
-<h1>开始旅程</h1>
-<p class="page-banner-sub">穿过零下三十度的北境，落脚每一个热气腾腾的归宿。</p>
 </div>
 
 <section class="card highlights">
@@ -2452,7 +2459,6 @@ html{ scroll-behavior:smooth; }
 <button class="hl-tab-btn" data-tab="food" onclick="switchHlTab('food')">东北美食</button>
 <button class="hl-tab-btn" data-tab="safety" onclick="switchHlTab('safety')">随行保障</button>
 </div>
-<p class="day-swipe-hint" id="hlSwipeHint">左右滑动切换分类</p>
 
 <div class="hl-viewport">
 <div class="hl-track" id="hlTrack">
@@ -2543,6 +2549,8 @@ html{ scroll-behavior:smooth; }
 </div>
 </div>
 
+<p class="day-swipe-hint" id="hlSwipeHint">左右滑动切换分类</p>
+
 </section>
 
 <section id="journey" class="card">
@@ -2559,7 +2567,6 @@ html{ scroll-behavior:smooth; }
 <a href="#day7">D7</a>
 <a href="#day8">D8</a>
 </div>
-<p class="day-swipe-hint">左右滑动切换每一天</p>
 
 <div class="day-viewport">
 <div class="day-track" id="dayTrack">
@@ -2765,6 +2772,8 @@ html{ scroll-behavior:smooth; }
 
 </div>
 </div>
+
+<p class="day-swipe-hint">左右滑动切换每一天</p>
 
 </section>
 
@@ -3016,12 +3025,14 @@ html{ scroll-behavior:smooth; }
 
 </section>
 
-<div class="page-footer-cta">
-<p class="section-eyebrow">Before You Go</p>
-<h3>出发前，先读懂这片土地</h3>
-<p>旅行故事、东北冷知识、方言小课堂，都在东北典故里等着你。</p>
-<button onclick="navGo('learn')">东北典故 →</button>
+<footer>
+<div class="footer-inner">
+<div class="footer-icon">&#10052;</div>
+<p class="footer-headline">踏雪而行，共赴一场跨年之约</p>
+<p class="footer-dates">26 DEC 2026 — 02 JAN 2027</p>
+<p class="footer-outro">让这场旅程，成为2026最美的句点。</p>
 </div>
+</footer>
 
 </div><!-- /#pageJourney -->
 
@@ -3029,19 +3040,12 @@ html{ scroll-behavior:smooth; }
 
 <div class="page-banner">
 <button class="back-link" onclick="showPage('hero')">‹ 返回首页</button>
-<p class="small-title">家庭冬季旅行 · DISCOVER</p>
-<h1>探索东北</h1>
-<p class="page-banner-sub">踏入这片白，读懂这片黑土地最炽热的独白。</p>
 </div>
 
 <!-- ============ STORIES ============ -->
 <section id="stories" class="card stories">
-<div class="section-icon-badge">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 6.5c-1.8-1.3-4.2-2-7-2v13c2.8 0 5.2.7 7 2 1.8-1.3 4.2-2 7-2v-13c-2.8 0-5.2.7-7 2z"/><path d="M12 6.5v13"/></svg>
-</div>
 <p class="section-eyebrow">Stories</p>
-<h2>旅行故事与在地文化</h2>
-<p class="section-intro">在启程之前，先读懂这片土地。每一座城市，都有一段值得慢慢讲的故事。</p>
+<h2>东北典故</h2>
 
 <div class="hl-tabs" id="storyTabs">
 <button class="hl-tab-btn active" data-city="harbin" onclick="switchStoryTab('harbin')">哈尔滨</button>
@@ -3049,7 +3053,7 @@ html{ scroll-behavior:smooth; }
 <button class="hl-tab-btn" data-city="xuexiang" onclick="switchStoryTab('xuexiang')">雪乡</button>
 <button class="hl-tab-btn" data-city="changbai" onclick="switchStoryTab('changbai')">长白山</button>
 </div>
-<p class="day-swipe-hint" id="storySwipeHint">左右滑动切换城市</p>
+<span id="storySwipeHint" class="scroll-anchor" aria-hidden="true"></span>
 
 <div class="hl-viewport">
 <div class="hl-track" id="storyTrack">
@@ -3116,86 +3120,94 @@ html{ scroll-behavior:smooth; }
 </div>
 </div>
 
+<p class="day-swipe-hint">左右滑动切换城市</p>
+
 </section>
 
 <!-- ============ DID YOU KNOW ============ -->
 <section id="coldfacts" class="card coldfacts">
-<div class="section-icon-badge">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.2 11.1c.6.4 1 1.1 1 1.9h4.4c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3z"/></svg>
-</div>
 <p class="section-eyebrow">Did You Know</p>
 <h2>东北冷知识</h2>
-<p class="section-intro">出发前先囤一点谈资，路上讲给家人听刚刚好。</p>
+<p class="section-intro">东北人的日常暗藏门道，点开卡片，看看你能猜对几个。</p>
 
 <div class="fact-grid">
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">01</span>
 <h4>零下三十度时手机为什么秒没电？</h4>
 <p>低温让锂电池化学反应变慢，电压瞬间降低触发保护机制自动关机；回到暖气房后，电量便会"满血复活"。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">02</span>
 <h4>入户门为什么都是往里拉的？</h4>
 <p>一旦夜里普降暴雪，室外积雪会把往外开的门死死顶住；门往里拉才能留出空隙，方便把雪刨开自救。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">03</span>
 <h4>漆黑硬邦邦的<span class="egg" data-egg="egg-dongli" data-msg="冻梨在东北已有数百年食用历史，是传统的越冬保鲜智慧。">冻梨</span>坏了吗？</h4>
 <p>没有坏，这是东北特有的水果魔法。反复冷冻解冻让果肉中的酚类物质氧化变黑，吃前放凉水解冻，敲开冰壳就能吸溜果汁。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">04</span>
 <h4>洗浴"翻面"是什么暗号？</h4>
 <p>搓澡时不用自己乱动，师傅会拍拍你的肩膀或大腿，用节奏示意"翻身"或"侧过来"，是心照不宣的默契。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">05</span>
 <h4>走在冰上为什么要像企鹅一样？</h4>
 <p>南方人习惯脚后跟先着地，在冰面上极易向后滑倒；正确姿势是身体前倾、重心压在前脚掌，小碎步贴地滑行更抓地。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">06</span>
 <h4>零下三十度晾的衣服为什么会干？</h4>
 <p>衣服挂出去几分钟就冻成硬纸板，但挂一天冰会自动消失——物理学上这叫"升华"，冰不经融化直接在干冷空气里蒸发了。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">07</span>
 <h4>在冰雪世界为什么还会被晒黑？</h4>
 <p>白雪对阳光反射率高达九成，相当于一面巨大镜子。不注意防晒，容易晒黑，甚至引发<span class="egg" data-egg="egg-xuemang" data-msg="雪盲症医学上称&quot;光性角膜炎&quot;，是强紫外线灼伤角膜所致。">"雪盲症"</span>。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">08</span>
 <h4>为什么车子总不熄火？</h4>
 <p>极寒下机油变粘稠、电瓶效率骤降，司机们宁愿怠速等待，也不愿冒险熄火后打不着车。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">09</span>
 <h4>为什么千万不能舔室外的铁栏杆？</h4>
 <p>铁的导热性极强，舌头贴上瞬间表面水分会瞬间结冰，像强力胶一样粘住舌头。千万别硬扯，要用温水浇淋解冻。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">10</span>
 <h4>"泼水成冰"为什么必须用热水？</h4>
 <p>热水蒸发极快，在极寒空气中会瞬间产生大量微小水滴并秒结成冰晶，形成羽毛状扇面；用冷水只会直接浇自己一头凉水。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">11</span>
 <h4>温泉蛋为什么蛋黄熟了蛋清却没熟？</h4>
 <p>低温慢煮的物理反差。温泉水温恰好介于蛋黄凝固点（约68°C）与蛋清凝固点（约80°C）之间，煮出来的蛋黄已凝固，蛋清却依然如吸溜果冻。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
-<div class="fact-card reveal-item">
+<div class="fact-card reveal-item" onclick="this.classList.toggle('open')">
 <span class="fact-index">12</span>
 <h4>露天泡温泉为什么会瞬间"白头"？</h4>
 <p>头顶-20°C的极寒与40°C的热气相遇，发丝上的水蒸气瞬间凝华成冰晶。几分钟就能全家集体解锁"圣诞老人"发型，拍照后记得迅速按进水里融化。</p>
+<span class="fact-toggle-hint">点击查看答案</span>
 </div>
 </div>
 </section>
 
 <!-- ============ 东北话小课堂 ============ -->
 <section id="dialect" class="card dialect">
-<div class="section-icon-badge">
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 5h16v10H8l-4 4V5z"/></svg>
-</div>
 <p class="section-eyebrow">Local Dialect</p>
 <h2>东北话小课堂</h2>
 <p class="section-intro">学几句东北话，瞬间拉近和当地人的距离。左右滑动继续学习。</p>
@@ -3307,15 +3319,6 @@ html{ scroll-behavior:smooth; }
 </div>
 </div>
 
-<footer>
-<div class="footer-inner">
-<div class="footer-icon">&#10052;</div>
-<p class="footer-headline">踏雪而行，共赴一场跨年之约</p>
-<p class="footer-dates">26 DEC 2026 — 02 JAN 2027</p>
-<p class="footer-outro">让这场旅程，成为2026最美的句点。</p>
-</div>
-</footer>
-
 <script>
 const hlTabOrder = ['attraction','experience','food','safety'];
 
@@ -3324,7 +3327,7 @@ function getHlViewport(){
 }
 
 function setHlActiveTab(tabName){
-    document.querySelectorAll('.hl-tab-btn').forEach(btn => {
+    document.querySelectorAll('.highlights .hl-tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-tab') === tabName);
     });
 }
@@ -3347,12 +3350,10 @@ window.switchHlTab = switchHlTab;
 // 和 Day 卡片一样：手指划动切换分类后，把 Highlights 区块顶部重新拉回视口内，
 // 避免用户停留在上一个分类卡片底部时，横滑切换却看不到新分类的标题/Tab栏
 function scrollHlTopIntoView(smooth){
-    const anchor = document.getElementById('hlSwipeHint');
     const tabs = document.getElementById('hlTabs');
-    if(!anchor) return;
-    const rect = anchor.getBoundingClientRect();
-    const tabsHeight = tabs ? tabs.offsetHeight : 0;
-    const extra = tabsHeight + 20;
+    if(!tabs) return;
+    const rect = tabs.getBoundingClientRect();
+    const extra = 20;
     const buffer = 90;
     if(rect.top < extra - 10 || rect.top > buffer + extra){
         const targetTop = window.scrollY + rect.top - extra;
@@ -3819,50 +3820,70 @@ function renderNavPanel(page){
     ).join('');
 }
 
-function showPage(page){
-    const hero = document.getElementById('heroSection');
-    const learn = document.getElementById('pageLearn');
-    const journey = document.getElementById('pageJourney');
+function animatePageIn(el){
+    if(!el) return;
+    el.classList.remove('page-anim');
+    void el.offsetWidth; // 强制重排，确保动画能重新播放
+    el.classList.add('page-anim');
+}
 
-    if(hero) hero.style.display = (page === 'hero') ? 'flex' : 'none';
-    if(learn) learn.classList.toggle('active', page === 'learn');
-    if(journey) journey.classList.toggle('active', page === 'journey');
+function showPage(page, onDone){
+    const veil = document.getElementById('pageVeil');
 
-    if(page === 'learn' || page === 'journey') renderNavPanel(page);
+    const swap = () => {
+        const hero = document.getElementById('heroSection');
+        const learn = document.getElementById('pageLearn');
+        const journey = document.getElementById('pageJourney');
 
-    closeNav();
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        if(hero){
+            hero.style.display = (page === 'hero') ? 'flex' : 'none';
+            if(page === 'hero') animatePageIn(hero);
+        }
+        if(learn){
+            learn.classList.toggle('active', page === 'learn');
+            if(page === 'learn') animatePageIn(learn);
+        }
+        if(journey){
+            journey.classList.toggle('active', page === 'journey');
+            if(page === 'journey') animatePageIn(journey);
+        }
+
+        if(page === 'learn' || page === 'journey') renderNavPanel(page);
+
+        closeNav();
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+        if(typeof onDone === 'function') onDone();
+    };
+
+    if(!veil){ swap(); return; }
+
+    veil.classList.add('show');
+    window.setTimeout(() => {
+        swap();
+        // 短暂停留在纯白画面，模拟"清空视觉"的一瞬，随后幕布随内容滑入一起淡出
+        window.setTimeout(() => {
+            requestAnimationFrame(() => veil.classList.remove('show'));
+        }, 90);
+    }, 300);
 }
 window.showPage = showPage;
 
 function navGo(page, anchorId){
-    showPage(page);
-    if(anchorId){
-        requestAnimationFrame(() => {
+    showPage(page, () => {
+        if(anchorId){
             requestAnimationFrame(() => {
-                const el = document.getElementById(anchorId);
-                if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                requestAnimationFrame(() => {
+                    const el = document.getElementById(anchorId);
+                    if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
             });
-        });
-    }
+        }
+    });
 }
 window.navGo = navGo;
 
 (function(){
-    function updateTickerHeight(){
-        const ticker = document.getElementById('tickerBar');
-        if(!ticker) return;
-        const h = ticker.offsetHeight || 0;
-        document.documentElement.style.setProperty('--ticker-h', h + 'px');
-    }
-
-    updateTickerHeight();
-    window.addEventListener('resize', updateTickerHeight);
-    window.addEventListener('orientationchange', updateTickerHeight);
-    if(document.fonts && document.fonts.ready){
-        document.fonts.ready.then(updateTickerHeight);
-    }
-
     const heroSection = document.getElementById('heroSection');
     const navToggleBtn = document.getElementById('navToggle');
     if(heroSection && navToggleBtn && 'IntersectionObserver' in window){
