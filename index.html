@@ -3921,6 +3921,8 @@ function showPage(page, onDone){
 
         if(page === 'learn' || page === 'journey') renderNavPanel(page);
 
+        try{ sessionStorage.setItem('currentPage', page); }catch(e){}
+
         closeNav();
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
@@ -3955,6 +3957,22 @@ function navGo(page, anchorId){
 window.navGo = navGo;
 
 (function(){
+    let savedPage = null;
+    try{ savedPage = sessionStorage.getItem('currentPage'); }catch(e){}
+    if(savedPage === 'learn' || savedPage === 'journey'){
+        const hero = document.getElementById('heroSection');
+        const learn = document.getElementById('pageLearn');
+        const journey = document.getElementById('pageJourney');
+        if(hero) hero.style.display = 'none';
+        if(learn) learn.classList.toggle('active', savedPage === 'learn');
+        if(journey) journey.classList.toggle('active', savedPage === 'journey');
+        renderNavPanel(savedPage);
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+})();
+
+
+(function(){
     const heroSection = document.getElementById('heroSection');
     const navToggleBtn = document.getElementById('navToggle');
     if(heroSection && navToggleBtn && 'IntersectionObserver' in window){
@@ -3977,10 +3995,12 @@ window.navGo = navGo;
     const btn = document.getElementById('musicBtn');
     const slash = document.getElementById('muteSlash');
     let isPlaying = false;
+    let userPaused = false;
 
     function playMusic(){
         audio.play().then(() => {
             isPlaying = true;
+            userPaused = false;
             btn.classList.add('playing');
             slash.style.opacity = '0';
         }).catch(() => {
@@ -3992,6 +4012,7 @@ window.navGo = navGo;
     function pauseMusic(){
         audio.pause();
         isPlaying = false;
+        userPaused = true;
         btn.classList.remove('playing');
         slash.style.opacity = '1';
     }
@@ -4017,7 +4038,7 @@ window.navGo = navGo;
     btn.addEventListener('touchend', handleTrigger, { passive:false });
 
     function startMusic(){
-        if(!isPlaying) playMusic();
+        if(!isPlaying && !userPaused) playMusic();
     }
 
     window.toggleMusic = toggleMusic;
