@@ -201,10 +201,12 @@ button:hover{
 
 .hero-choice{
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
+    gap:6px;
     width:100%;
-    padding:17px 26px;
+    padding:15px 26px 17px;
     border:1px solid rgba(255,255,255,.55);
     border-radius:2px;
     background:rgba(255,255,255,.03);
@@ -216,6 +218,15 @@ button:hover{
     text-transform:uppercase;
     cursor:pointer;
     transition:.3s;
+}
+
+.hero-choice-sub{
+    font-family:var(--font-cn);
+    font-weight:300;
+    font-size:11px;
+    letter-spacing:.5px;
+    text-transform:none;
+    color:rgba(255,255,255,.58);
 }
 
 .hero-choice:hover,
@@ -301,6 +312,28 @@ button:hover{
 }
 
 .page-footer-cta button:hover{
+    background:var(--winter-navy);
+    color:#fff;
+}
+
+.page-footer-cta-btn{
+    display:inline-block;
+    border:1px solid var(--winter-navy);
+    padding:15px 38px;
+    border-radius:2px;
+    background:transparent;
+    color:var(--winter-navy);
+    font-family:var(--font-en);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    text-decoration:none;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.page-footer-cta-btn:hover{
     background:var(--winter-navy);
     color:#fff;
 }
@@ -2027,6 +2060,7 @@ footer{
     justify-content:center;
     gap:2px;
     padding:30px 36px;
+    overflow-y:auto;
     transform:translateX(100%);
     transition:transform .4s cubic-bezier(.22,.68,0,1);
 }
@@ -2080,6 +2114,41 @@ footer{
 .nav-panel a:active{
     padding-left:10px;
     color:var(--winter-navy);
+}
+
+.nav-switch{
+    margin-top:14px;
+    border-bottom:none !important;
+    border-top:1px solid rgba(27,42,61,.08);
+    padding-top:22px !important;
+    justify-content:space-between;
+}
+
+.nav-switch-text{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.nav-switch .nav-cn{
+    font-size:14px;
+    font-weight:600;
+    color:var(--gold-accent);
+}
+
+.nav-switch .nav-en{
+    color:var(--ink-muted);
+}
+
+.nav-switch-arrow{
+    font-size:16px;
+    color:var(--gold-accent);
+    transition:transform .25s;
+}
+
+.nav-switch:hover .nav-switch-arrow,
+.nav-switch:active .nav-switch-arrow{
+    transform:translateX(4px);
 }
 
 .nav-overlay{
@@ -2471,8 +2540,8 @@ html{ scroll-behavior:smooth; }
 <div class="date">26 DEC 2026<br>—<br>02 JAN 2027</div>
 <div class="hero-countdown" id="heroCountdown">正在计算...</div>
 <div class="hero-cta-group">
-<button class="hero-choice" onclick="if(window.startMusic) window.startMusic(); navGo('learn');">探索东北</button>
-<button class="hero-choice" onclick="if(window.startMusic) window.startMusic(); navGo('journey');">开始旅程</button>
+<button class="hero-choice" onclick="if(window.startMusic) window.startMusic(); navGo('learn');">探索东北<span class="hero-choice-sub">典故 · 冷知识 · 方言小课堂</span></button>
+<button class="hero-choice" onclick="if(window.startMusic) window.startMusic(); navGo('journey');">开始旅程<span class="hero-choice-sub">每日行程 · 住宿航班 · 穿搭清单</span></button>
 </div>
 </div>
 </section>
@@ -2483,7 +2552,7 @@ html{ scroll-behavior:smooth; }
 <button class="back-link" onclick="showPage('hero')">‹ 返回首页</button>
 </div>
 
-<section class="card highlights">
+<section id="highlights" class="card highlights">
 <p class="section-eyebrow">Highlights</p>
 <h2>行程亮点</h2>
 
@@ -2865,6 +2934,7 @@ html{ scroll-behavior:smooth; }
 </div>
 
 </div>
+<p class="day-swipe-hint">点击卡片翻面查看实景图</p>
 </section>
 
 <section id="flights" class="card important">
@@ -2896,7 +2966,7 @@ html{ scroll-behavior:smooth; }
 <div class="weather-grid" id="weatherGrid">
 </div>
 
-<p class="weather-hint">天气资料每10分钟自动更新，仅供参考。</p>
+<p class="weather-hint">以上为当地实时天气（非行程期间预报），每10分钟自动更新；行程临近时请回来查看当天最新天气。</p>
 </section>
 
 <section id="outfit" class="card outfit">
@@ -3078,6 +3148,13 @@ html{ scroll-behavior:smooth; }
 </div>
 
 </section>
+
+<div class="page-footer-cta">
+<p class="section-eyebrow">Expenses</p>
+<h3>行程账本</h3>
+<p>大家垫的钱、该收该付的都记在 DivvyDuck 上。打开 App 后用旅程邀请码加入即可查看——邀请码请另外在群里找。</p>
+<a class="page-footer-cta-btn" href="https://www.divvyduck.com" target="_blank" rel="noopener">打开 DivvyDuck →</a>
+</div>
 
 <footer>
 <div class="footer-inner">
@@ -3867,28 +3944,41 @@ window.closeNav = closeNav;
 ============================================= */
 const navItemsByPage = {
     journey: [
-        ['01','每日旅程','Journey','journey'],
-        ['02','住宿','Hotels','hotels'],
-        ['03','航班资讯','Flights','flights'],
-        ['04','实时天气','Weather','weather'],
-        ['05','穿搭指南','Outfit Guide','outfit'],
-        ['06','汇率换算','Exchange Rate','exchange'],
-        ['07','行李清单','Packing','checklist']
+        ['01','行程亮点','Highlights','highlights'],
+        ['02','每日旅程','Journey','journey'],
+        ['03','住宿','Stays','hotels'],
+        ['04','航班资讯','Flights','flights'],
+        ['05','实时天气','Weather','weather'],
+        ['06','穿搭指南','Outfit Guide','outfit'],
+        ['07','汇率换算','Exchange Rate','exchange'],
+        ['08','行李清单','Packing','checklist']
     ],
     learn: [
         ['01','旅行故事','Stories','stories'],
         ['02','东北冷知识','Did You Know','coldfacts'],
-        ['03','东北话小课堂','Dialect','dialect']
+        ['03','东北话小课堂','Local Dialect','dialect']
     ]
+};
+
+const otherPageInfo = {
+    journey: { page:'learn', cn:'探索东北的故事与冷知识', en:'Stories & Dialect' },
+    learn: { page:'journey', cn:'开始旅程实用信息', en:'Itinerary & Essentials' }
 };
 
 function renderNavPanel(page){
     const panel = document.getElementById('navPanel');
     if(!panel) return;
     const items = navItemsByPage[page] || [];
-    panel.innerHTML = items.map(([num, cn, en, anchor]) =>
+    let html = items.map(([num, cn, en, anchor]) =>
         `<a href="#${anchor}" onclick="event.preventDefault(); navGo('${page}','${anchor}');"><span class="nav-num">${num}</span><span class="nav-text"><span class="nav-cn">${cn}</span><span class="nav-en">${en}</span></span></a>`
     ).join('');
+
+    const other = otherPageInfo[page];
+    if(other){
+        html += `<a class="nav-switch" href="#" onclick="event.preventDefault(); navGo('${other.page}');"><span class="nav-switch-text"><span class="nav-cn">${other.cn}</span><span class="nav-en">${other.en}</span></span><span class="nav-switch-arrow">→</span></a>`;
+    }
+
+    panel.innerHTML = html;
 }
 
 function animatePageIn(el){
